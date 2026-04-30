@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: JoDro79/woordopweg
+  repo: JoDro79/woord-op-weg
   branch: main
 
 media_folder: "afbeeldingen"
