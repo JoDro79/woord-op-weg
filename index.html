@@ -871,6 +871,7 @@ const articles = {
 let currentArticle = null;
 
 function openArticle(id) {
+	history.pushState({ article: id }, '', '#' + id);
   const art = articles[id];
   currentArticle = id;
 
@@ -885,8 +886,16 @@ function openArticle(id) {
   document.getElementById('article-view').classList.add('active');
   window.scrollTo({ top: document.getElementById('teksten').offsetTop - 70, behavior: 'smooth' });
 }
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.article) {
+    openArticle(e.state.article);
+  } else {
+    closeArticle();
+  }
+});
 
 function closeArticle() {
+	history.pushState({}, '', '#');
   document.getElementById('articles-grid').style.display = 'grid';
   document.querySelector('.articles-section .section-header').style.display = 'block';
   document.getElementById('article-view').classList.remove('active');
