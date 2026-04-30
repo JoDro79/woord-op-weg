@@ -2,6 +2,7 @@ backend:
   name: github
   repo: JoDro79/woord-op-weg
   branch: main
+  auth_type: pkce
 
 media_folder: "afbeeldingen"
 public_folder: "/afbeeldingen"
