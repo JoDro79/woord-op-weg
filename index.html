@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Woord op Weg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf7f2;
+    --parchment: #ede5d4;
+    --sand: #d4c4a8;
+    --olive: #6b7a4a;
+    --olive-dark: #4a5535;
+    --navy: #1e2d4a;
+    --navy-light: #2d4168;
+    --gold: #8a7340;
+    --gold-light: #b09a5e;
+    --text: #2a2016;
+    --text-light: #5a4e3a;
+    --text-muted: #8a7d6a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--warm-white);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(30, 45, 74, 0.92);
+    backdrop-filter: blur(8px);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+    border-bottom: 1px solid rgba(176, 154, 94, 0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(245, 240, 232, 0.85);
+    text-decoration: none;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(to bottom, rgba(20,30,50,0.5) 0%, rgba(30,45,74,0.2) 50%, rgba(50,40,20,0.4) 100%),
+      url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1600&q=80') center/cover no-repeat;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 2rem 4rem;
+    position: relative;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--warm-white));
+  }
+
+  .hero-content { max-width: 680px; position: relative; z-index: 1; }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    color: #fff;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3em;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    color: rgba(245, 240, 232, 0.9);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.8em;
+    animation: fadeUp 1s 0.15s ease both;
+  }
+
+  .hero-divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+    margin: 0 auto 1.8em;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .hero-text {
+    color: rgba(245, 240, 232, 0.88);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto 2.5em;
+    line-height: 1.8;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+
+  .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: fadeUp 1s 0.45s ease both; }
+
+  .btn {
+    padding: 0.75em 2em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+    border: 1px solid rgba(176, 154, 94, 0.4);
+  }
+  .btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+
+  .btn-secondary {
+    background: var(--olive);
+    color: #fff;
+    border: 1px solid rgba(176, 154, 94, 0.4);
+  }
+  .btn-secondary:hover { background: var(--olive-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+
+  /* ── SECTIONS GENERAL ── */
+  section { padding: 5rem 1.5rem; }
+
+  .section-header { text-align: center; margin-bottom: 3rem; }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--navy);
+    margin-bottom: 0.4em;
+    letter-spacing: 0.03em;
+  }
+
+  .section-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    margin-bottom: 0.5em;
+  }
+
+  .ornament {
+    display: flex; align-items: center; gap: 1rem;
+    justify-content: center; margin-bottom: 1em;
+  }
+  .ornament::before, .ornament::after {
+    content: '';
+    flex: 1; max-width: 80px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--sand));
+  }
+  .ornament::after { background: linear-gradient(to left, transparent, var(--sand)); }
+  .ornament span { color: var(--gold); font-size: 0.6rem; letter-spacing: 0.3em; }
+
+  /* ── ARTICLES ── */
+  .articles-section { background: var(--warm-white); }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .article-card {
+    background: #fff;
+    border: 1px solid var(--parchment);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+  }
+  .article-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+
+  .card-img { width: 100%; height: 200px; object-fit: cover; display: block; }
+  .card-img-placeholder {
+    width: 100%; height: 200px;
+    background: linear-gradient(135deg, var(--parchment), var(--sand));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 0.85rem; font-style: italic;
+  }
+
+  .card-body { padding: 1.5rem; }
+
+  .card-category {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 0.5em;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.6em;
+    line-height: 1.3;
+  }
+
+  .card-excerpt { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1.2em; line-height: 1.65; }
+
+  .card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--parchment); padding-top: 0.8em; }
+
+  .card-read-more {
+    color: var(--olive); text-decoration: none; font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    display: flex; align-items: center; gap: 0.3em;
+    transition: gap 0.2s;
+  }
+  .card-read-more:hover { gap: 0.6em; }
+
+  /* ── FULL ARTICLE VIEW ── */
+  .article-view {
+    display: none;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .article-view.active { display: block; }
+
+  .article-view h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--navy);
+    margin-bottom: 0.3em;
+    line-height: 1.2;
+  }
+
+  .article-view .article-meta {
+    color: var(--text-muted); font-size: 0.85rem; font-style: italic;
+    margin-bottom: 1.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--parchment);
+  }
+
+  .article-view .article-body { color: var(--text); line-height: 1.9; font-size: 1.05rem; }
+  .article-view .article-body p { margin-bottom: 1.4em; }
+  .article-view .article-body blockquote {
+    border-left: 3px solid var(--gold);
+    padding-left: 1.5rem;
+    margin: 2em 0;
+    font-style: italic;
+    color: var(--text-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+  }
+
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 0.4em;
+    color: var(--olive); text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.95rem;
+    margin-bottom: 2em; cursor: pointer;
+    background: none; border: none;
+    transition: gap 0.2s;
+  }
+  .back-btn:hover { gap: 0.7em; }
+
+  /* ── COMMENTS ── */
+  .comments-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--parchment);
+  }
+
+  .comments-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .comment {
+    background: var(--cream);
+    border-left: 3px solid var(--sand);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .comment-author {
+    font-weight: 500; color: var(--navy);
+    font-size: 0.9rem; margin-bottom: 0.2em;
+  }
+
+  .comment-date { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6em; }
+  .comment-text { font-size: 0.95rem; color: var(--text-light); }
+
+  .comment-form { margin-top: 2rem; }
+  .comment-form h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: var(--navy); margin-bottom: 1rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+  .form-field { display: flex; flex-direction: column; gap: 0.3em; }
+  .form-field label { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+
+  input, textarea {
+    border: 1px solid var(--sand);
+    background: #fff;
+    padding: 0.6em 0.9em;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  input:focus, textarea:focus { border-color: var(--olive); }
+  textarea { resize: vertical; min-height: 120px; }
+
+  .btn-submit {
+    background: var(--olive);
+    color: #fff;
+    border: none;
+    padding: 0.7em 2em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.5rem;
+  }
+  .btn-submit:hover { background: var(--olive-dark); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter-section {
+    background: var(--parchment);
+    text-align: center;
+  }
+
+  .newsletter-inner { max-width: 560px; margin: 0 auto; }
+
+  .newsletter-form {
+    display: flex; gap: 0; margin-top: 1.5rem;
+    border: 1px solid var(--sand);
+    overflow: hidden;
+    max-width: 480px;
+    margin-left: auto; margin-right: auto;
+  }
+
+  .newsletter-form input {
+    flex: 1; border: none;
+    padding: 0.8em 1.2em;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+
+  .newsletter-form button {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 0.8em 1.5em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .newsletter-form button:hover { background: var(--navy-light); }
+
+  /* ── ABOUT ── */
+  .about-section { background: var(--warm-white); text-align: center; }
+  .about-inner { max-width: 600px; margin: 0 auto; }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--cream); }
+  .contact-inner { max-width: 560px; margin: 0 auto; }
+  .contact-form .form-field { margin-bottom: 1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(245, 240, 232, 0.7);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  footer a { color: var(--gold-light); text-decoration: none; margin: 0 0.6em; }
+  footer a:hover { color: #fff; }
+
+  /* ── NOTIFICATION ── */
+  .notification {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+    background: var(--olive);
+    color: #fff;
+    padding: 0.8em 1.5em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transform: translateY(120%);
+    transition: transform 0.4s ease;
+    max-width: 300px;
+  }
+  .notification.show { transform: translateY(0); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    section { padding: 3.5rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">Woord op Weg</a>
+  <ul class="nav-links">
+    <li><a href="#teksten">Teksten</a></li>
+    <li><a href="#nieuwsbrief">Nieuwsbrief</a></li>
+    <li><a href="#over">Over mij</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Woord op Weg</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Teksten over geschiedenis, geloof en de zoektocht naar betekenis</p>
+    <p class="hero-text">Woorden bewegen. Ze openen, raken en wijzen de weg. Hier verzamel ik mijn reflecties over geschiedenis, religie en de symboliek die ons mens-zijn vormt.</p>
+    <div class="hero-buttons">
+      <a href="#teksten" class="btn btn-primary">Lees mijn teksten</a>
+      <a href="#nieuwsbrief" class="btn btn-secondary">Schrijf je in voor de nieuwsbrief</a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTIKELEN -->
+<section class="articles-section fade-in" id="teksten">
+  <div class="section-header">
+    <div class="ornament"><span>✦</span></div>
+    <h2 class="section-title">Laatste teksten</h2>
+    <p class="section-subtitle">Nieuwe woorden, nieuwe stappen op weg.</p>
+    <p style="color:var(--text-muted); font-size:0.95rem;">Lees mijn meest recente artikelen.</p>
+  </div>
+
+  <!-- Grid view -->
+  <div class="articles-grid" id="articles-grid">
+
+    <div class="article-card" onclick="openArticle('david')">
+      <img class="card-img" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80" alt="David" onerror="this.style.display='none'">
+      <div class="card-body">
+        <p class="card-category">Geloof</p>
+        <h3 class="card-title">David — Dark Horse van God</h3>
+        <p class="card-excerpt">Een herdersjongen tegenover de meest gevreesde krijger van zijn tijd. Maar wie het verborgen verhaal kent, ziet geen underdog — maar een man die al jaren werd voorbereid.</p>
+        <div class="card-meta">
+          <span>27 april 2026</span>
+          <a class="card-read-more">Lees meer →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-card" onclick="openArticle('steen')">
+      <img class="card-img" src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=600&q=80" alt="Levende Steen" onerror="this.style.display='none'">
+      <div class="card-body">
+        <p class="card-category">Bezinning</p>
+        <h3 class="card-title">Levende Steen</h3>
+        <p class="card-excerpt">De steen houdt niet vast aan zijn vorm — hij geeft zich over aan de beitel die zijn ziel blootlegt.</p>
+        <div class="card-meta">
+          <span>27 april 2026</span>
+          <a class="card-read-more">Lees meer →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-card" onclick="openArticle('zaad')">
+      <img class="card-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Het Zaad van het Koninkrijk" onerror="this.style.display='none'">
+      <div class="card-body">
+        <p class="card-category">Geloof</p>
+        <h3 class="card-title">Het Zaad van het Koninkrijk</h3>
+        <p class="card-excerpt">De natuur van het Koninkrijk der Hemelen is groei, transformatie en expansie — verborgen als een mosterdzaadje, onstuitbaar als zuurdeeg.</p>
+        <div class="card-meta">
+          <span>28 april 2026</span>
+          <a class="card-read-more">Lees meer →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Single article view -->
+  <div class="article-view" id="article-view">
+    <button class="back-btn" onclick="closeArticle()">← Terug naar overzicht</button>
+    <h2 id="av-title"></h2>
+    <p class="article-meta" id="av-meta"></p>
+    <div class="article-body" id="av-body"></div>
+
+    <!-- Comments -->
+    <div class="comments-section">
+      <h3 class="comments-title">Reacties</h3>
+      <div id="comments-list"></div>
+
+      <div class="comment-form">
+        <h4>Laat een reactie achter</h4>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="c-name">Naam</label>
+            <input type="text" id="c-name" placeholder="Jouw naam">
+          </div>
+          <div class="form-field">
+            <label for="c-email">E-mail (niet zichtbaar)</label>
+            <input type="email" id="c-email" placeholder="jouw@email.nl">
+          </div>
+        </div>
+        <div class="form-field" style="margin-bottom:1rem">
+          <label for="c-text">Reactie</label>
+          <textarea id="c-text" placeholder="Deel jouw gedachten..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitComment()">Reactie plaatsen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NIEUWSBRIEF -->
+<section class="newsletter-section fade-in" id="nieuwsbrief">
+  <div class="newsletter-inner">
+    <div class="ornament"><span>✦</span></div>
+    <h2 class="section-title" style="font-style:italic;">Blijf onderweg met mij</h2>
+    <p style="color:var(--text-light); margin-top:0.5em;">Ontvang mijn nieuwsbrief met nieuwe inzichten en verhalen.</p>
+    <div class="newsletter-form" style="margin-top:1.5rem;">
+      <input type="email" id="nl-email" placeholder="Jouw e-mailadres...">
+      <button onclick="subscribeNewsletter()">Meld je aan</button>
+    </div>
+    <p id="nl-message" style="margin-top:1rem; font-style:italic; color:var(--olive); display:none;"></p>
+  </div>
+</section>
+
+<!-- OVER MIJ -->
+<section class="about-section fade-in" id="over">
+  <div class="about-inner">
+    <div class="ornament"><span>✦</span></div>
+    <h2 class="section-title">Over dit project</h2>
+    <p class="section-subtitle" style="margin-top:0.4em;">'Woord op Weg' is een plek voor verdieping.</p>
+    <p style="color:var(--text-light); margin-top:1em;">Ik schrijf onder de naam <strong>Verbius</strong> over geschiedenis, geloof en symboliek. Niet als eindpunten, maar als richtingaanwijzers. Elk artikel is een uitnodiging om samen te zoeken, te lezen en de weg verder te gaan.</p>
+    <a href="#contact" class="btn btn-primary" style="margin-top:1.8em; display:inline-block;">Neem contact op ›</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section fade-in" id="contact">
+  <div class="contact-inner">
+    <div class="section-header">
+      <div class="ornament"><span>✦</span></div>
+      <h2 class="section-title" style="font-style:italic;">In gesprek</h2>
+      <p class="section-subtitle">Heb je vragen of gedachten? Verbius hoort graag van je.</p>
+      <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.3em;">Berichten worden verstuurd naar antwoord@woordopweg.nl</p>
+    </div>
+    <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact">
+      <p style="display:none"><input name="bot-field"></p>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="ct-name">Naam</label>
+          <input type="text" id="ct-name" name="naam" placeholder="Jouw naam" required>
+        </div>
+        <div class="form-field">
+          <label for="ct-email">E-mail</label>
+          <input type="email" id="ct-email" name="email" placeholder="jouw@email.nl" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="ct-subject">Onderwerp</label>
+        <input type="text" id="ct-subject" name="onderwerp" placeholder="Waar gaat het over?">
+      </div>
+      <div class="form-field" style="margin-bottom:1rem">
+        <label for="ct-msg">Bericht</label>
+        <textarea id="ct-msg" name="bericht" placeholder="Jouw bericht..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Verstuur bericht</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© Woord op Weg — geschreven door Verbius &nbsp;|&nbsp;
+    <a href="#home">Home</a>
+    <a href="#teksten">Teksten</a>
+    <a href="#nieuwsbrief">Nieuwsbrief</a>
+    <a href="#over">Over mij</a>
+    <a href="#contact">Contact</a>
+  </p>
+</footer>
+
+<!-- NOTIFICATION -->
+<div class="notification" id="notification"></div>
+
+<script>
+// ── Article data ──
+const articles = {
+  david: {
+    title: 'David — Dark Horse van God',
+    meta: 'Categorie: Geloof · 27 april 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p>David stond tegenover Goliath. Een herdersjongen, optisch misplaatst tussen het staal en de spierkracht van het slagveld. Een hoeder van schapen in simpele kleding tussen geharde krijgers in volledige wapenuitrusting. Hij is de kleinste van zijn gezin, terwijl zijn drie oudste broers, Eliab, Abinadab en Shammah, de eer verdedigen in Sauls leger. David is er slechts als helper op het slagveld, door zijn vader gezonden met geroosterd koren en broden voor zijn broers, en tien melkkazen om de gunst van hun bevelhebber te winnen.</p>
+
+      <p>Al veertig dagen lang galmt de spot van de reus Goliath door de vallei van Ela. Een reus in een bronzen pantser die de linies van de Israëlieten verlamt met angst. Terwijl Sauls manschappen sidderen van angst, blijft David onbevreesd. Hij ziet geen onoverwinnelijke halfgod, maar een tegenstander die de levende God van Israël tart.</p>
+
+      <p>Saul kijkt met ongeloof naar de jongen. Hij ziet slechts een herder zonder littekens van de strijd, een kind dat het wil opnemen tegen de volwassen summum van krijgskunst. Maar David spreekt met de overtuiging van de praktijk; hij vertelt hoe hij de leeuw en de beer met blote handen versloeg om zijn kudde te beschermen. Wat voor de koning een roekeloze missie lijkt, is voor David een voortzetting van zijn trouw aan God.</p>
+
+      <p>Saul zwicht en probeert de jongen te kneden naar het beeld van een krijger. Hij hangt hem zijn eigen koninklijke harnas om en zet hem een bronzen helm op het hoofd. Maar de uitrusting knelt. David legt de zware last af en kiest voor de eenvoud die hij beheerst. Geen zwaard, maar een slinger. Geen schild, maar vijf gladde stenen uit de beek.</p>
+
+      <p>Met slechts zijn slinger en een rotsvast geloof treedt hij de reus tegemoet. Eén steen, één worp, recht in het enige onbeschermde deel van het pantser. De reus valt, de stilte keert terug, en de herdersjongen transformeert tot de onbetwiste held van een natie.</p>
+
+      <p>Is dit een verhaal van iemand die tegen alle kansen in won? Of is dit het verhaal van Gods plan, die David van jongs af aan apart hield en hem door ontberingen trainde en hem spiritueel sterk maakte?</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">De vorming van een koning: de herder in de woestijn</h3>
+
+      <p>Het antwoord ligt in het verborgen dagelijks leven van David als herder. Een herder is niet simpelweg een toeschouwer; hij is degene die actief een kudde hoedt, leidt, voedt en beschermt. Dit is geen romantisch of idyllisch plaatje, maar een zwaar, vaak eenzaam en nomadisch leven onder constante dreiging. Deze rauwe realiteit dwingt hem om problemen niet uit de weg te gaan, maar ze zelf op te lossen.</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">De symboliek van de leeuw en de beer</h3>
+
+      <p>De leeuw staat symbool voor brute kracht, hoogmoed en koninklijke overmacht. Door de leeuw te verslaan, leerde David dat aardse macht en intimidatie niet het laatste woord hebben. De beer daarentegen vertegenwoordigt de onvoorspelbare, woeste razernij. Op het slagveld komt David de personificatie van deze dieren tegen: de leeuw in de vorm van Saul en de beer in de vorm van Goliath.</p>
+
+      <blockquote>„Uw dienaar heeft zowel leeuw als beer verslagen. Zó zal deze onbesneden Filistijn zijn als een van hen, omdat hij de gelederen van de levende God gehoond heeft." — 1 Samuël 17:36</blockquote>
+
+      <p>Zijn leven in de wildernis bracht hem meer dan alleen fysieke weerbaarheid. Het smeedde een ongekende geestelijke diepgang in zijn ziel. God herkende dit zorgvuldig gevormde hart, dat in de verborgenheid tot volwassenheid was gekomen.</p>
+
+      <blockquote>„Het is namelijk niet wat de mens ziet, want de mens ziet aan wat voor ogen is, maar de HEERE ziet het hart aan." — 1 Samuël 16:7</blockquote>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">De wijsheid tegenover de reus</h3>
+
+      <p>Goliath bekeek David met diepe minachting. Al veertig dagen lang heerste hij als een god van staal over de vallei van Ela. Zijn enorme gestalte was zijn trots, maar in de ogen van de Eeuwige werd het zijn valstrik. God verslaat de hoogmoedige niet met een nog grotere kracht, maar door de fundamenten van die kracht tegen de hoogmoedige zelf te keren.</p>
+
+      <p>David weigerde te vechten volgens de regels van de wereld. Door zijn snelheid en afstandswapen te gebruiken, veranderde hij een brute krachtmeting in een goddelijk geleide asymmetrie. Wat onoverwinnelijk leek, boog voor de Almachtige.</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">De nasleep: de voltooiing van de omkering</h3>
+
+      <p>De val van Goliath was niet slechts een einde aan de onmiddellijke dreiging, maar een totale omkering. David nam diens zwaard en hakte daarmee zijn hoofd af. Het wapen waarmee Goliath veertig dagen lang de gelederen van de levende God tartte, keerde zich nu tegen hemzelf.</p>
+
+      <blockquote>„Zo overwon David de Filistijn met een slinger en met een steen, hij versloeg de Filistijn en doodde hem. Maar een zwaard had David niet in zijn hand." — 1 Samuël 17:50</blockquote>
+
+      <p>Jaren later, op de vlucht voor Saul, hongerig en ongewapend, vond David dit zwaard terug in het heiligdom — bewaard als een getuigenis van Gods trouw. Wat eens een instrument van dood was, werd een symbool van redding en voorziening.</p>
+
+      <blockquote>„Jullie weliswaar, jullie hebben kwaad tegen mij bedacht, maar God heeft dat ten goede gedacht." — Genesis 50:20</blockquote>
+
+      <p>Dit patroon van omkering loopt als een rode draad door de Schrift. Vernietigt God dreigingen alleen, of bewaart Hij soms juist de sporen ervan — om latere generaties te herinneren aan Zijn genade en Zijn heerschappij?</p>
+    `
+  },
+  zaad: {
+    title: 'Het Zaad van het Koninkrijk',
+    meta: 'Categorie: Geloof · 28 april 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p>De natuur van het Koninkrijk der Hemelen is groei, transformatie en expansie. Jezus legt dit concept uit door middel van gelijkenissen. Alledaagse zaken waarbij de basisprincipes vergelijkbaar zijn met de werking van het Koninkrijk der Hemelen. De gelijkenissen zijn als een code voor de toehoorders, eentje die alleen gekraakt kan worden door degene die zoekt — die openstaat voor wijsheid.</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Mattheüs 13:31-33 — Het mosterdzaad</h3>
+
+      <blockquote>„Het Koninkrijk der hemelen is gelijk aan een mosterdzaad, dat iemand nam en in zijn akker zaaide." — Mattheüs 13:31</blockquote>
+
+      <p>Het mosterdzaad was in de tijd van Jezus het kleinste zaad dat boeren gewoonlijk in hun velden zaaiden. In één groeiseizoen groeit het uit tot een grote struik van circa 2 tot 3,5 meter hoog. Na één seizoen produceert de plant duizenden nieuwe zaadjes, sterft af en de cyclus herhaalt zich het volgende jaar in sterk vermenigvuldigde vorm.</p>
+
+      <p>De gelijkenis noemt ook "iemand" die het zaad in zijn akker zaait. Hij bereidt de akker voor, zaait en beheert het gewas. Dit beeld kan gezien worden als een afspiegeling van Gods zorg voor de mens: Hij geeft alles wat nodig is, zelfs voordat wij bestonden.</p>
+
+      <blockquote>„Dat is wel het kleinste van al de zaden, maar als het opgegroeid is, is het het grootste van de tuingewassen en het wordt een boom, zodat de vogels in de lucht een nest komen maken in zijn takken." — Mattheüs 13:32</blockquote>
+
+      <p>Een opvallend detail is de rol van de vogels. Bij het zaaien vormen vogels een direct gevaar — zij kunnen het zaad opeten voordat het wortel schiet. Maar in de volgroeide mosterdplant slaat de dynamiek om. Wat eerst een bedreiging was voor het zaad, vindt nu beschutting in het resultaat van datzelfde zaad. De vijand van gisteren kan gast worden. Daarin openbaart zich de overwinningskracht van de liefde van Christus.</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Het zuurdeeg — verborgen werking</h3>
+
+      <blockquote>„Het Koninkrijk der hemelen is gelijk aan zuurdeeg, dat een vrouw nam en in drie maten meel verborg, totdat het helemaal doorzuurd was." — Mattheüs 13:33</blockquote>
+
+      <p>Zuurdeeg vormt een levend micro-organisme dat zichzelf vermenigvuldigt en een grote massa deeg kan doordringen. Van buitenaf is er aanvankelijk niets zichtbaar, maar uiteindelijk is het hele deeg doordrongen. De hoeveelheid is opvallend: drie maten komt neer op circa 22 tot 30 kilo bloem — een feestelijke, gastvrije hoeveelheid die herinnert aan Genesis 18:6. Zo werkt het Koninkrijk: klein en verborgen, maar het doordringt en verandert alles van binnenuit.</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Parallelle teksten</h3>
+
+      <blockquote>„Als u een geloof had als een mosterdzaadje, zou u tegen deze moerbeiboom zeggen: Word ontworteld en in de zee geplant, en hij zou u gehoorzamen." — Lukas 17:6</blockquote>
+
+      <blockquote>„Als de tarwekorrel niet in de aarde valt en sterft, blijft hij alleen; maar als hij sterft, draagt hij veel vrucht." — Johannes 12:24</blockquote>
+
+      <blockquote>„De boom die laag van stam is, heb Ik verheven, de verdorde boom heb Ik doen uitlopen. Ík, de HEERE, heb gesproken en zal het doen." — Ezechiël 17:24</blockquote>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Het patroon van het Koninkrijk</h3>
+
+      <p>De gelijkenissen laten één consistent patroon zien: het begint altijd minuscuul en ogenschijnlijk onbeduidend, groeit door een onstuitbare onzichtbare kracht, en eindigt in radicale expansie die de oorspronkelijke schaal ver te boven gaat.</p>
+
+      <p>Klein en verborgen begin — zichtbaar alleen voor wie zoekt. Interne, transformerende werking — het Koninkrijk verandert van binnenuit, niet door uiterlijke macht. Omkering — wat zwak of dood lijkt, wordt door Goddelijk ingrijpen tot iets machtigs.</p>
+
+      <p>Jezus Zelf is het archetype van dit patroon. Hij is het kleinste zaadje, het tedere spruitje uit Davids huis, de tarwekorrel die sterft. Door Zijn dood en opstanding brengt Hij de universele vrucht voort: een Koninkrijk waarin mensen uit alle volken beschutting, leven en rust vinden.</p>
+
+      <p>Het Koninkrijk der hemelen is als een zaad dat sterft om te leven, een klein gistdeeltje dat alles doordringt, en een teder twijgje dat door God Zelf wordt geplant tot een boom waarin alle volken rust vinden. Wie dit begrijpt, begrijpt zowel de weg van Christus als de weg die ieder die Hem volgt moet gaan.</p>
+    `
+  },
+  steen: {
+    title: 'Levende Steen',
+    meta: 'Categorie: Bezinning · 27 april 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p>De steen houdt niet vast aan zijn vorm, hij geeft zich alleen over aan de beitel die zijn ziel blootlegt.</p>
+
+      <p>Maar de jonge beeldhouwer gaat op in zijn gedachten en verliest zijn aandacht. Het beeld dat hij in zijn hoofd zag, wordt vertroebeld door de dagelijkse beslommeringen. Op een onverwacht moment, een ongecontroleerde beweging, een kleine onachtzaamheid en de steen barst. Hij geeft te veel bloot, verliest zijn ware vorm die verborgen lag. Het verloren deel springt van de steen en de scherpte snijdt in de hand van de beeldhouwer. Hij is weer terug in het hier en nu. Het is de beeldhouwer die wat verliest. Bloed en ego.</p>
+
+      <p>De oude beeldhouwer werkt in stilte. Waar de jonge beeldhouwer vertrouwt op zijn uithoudingsvermogen en kracht, spreekt de ziel van de oude in stilte met de steen. Hij vraagt de steen wie hij is, wat zijn vorm is, wie er vloeit uit de harde schil. Hij is geduldig, voorzichtig, weloverwogen. Bedachtzaam, toegewijd. En hij maakt de steen trots op wie hij is. Om zich te tonen wie hij werkelijk is. Niet hard en onbreekbaar, maar warm en sprekend.</p>
+
+      <p>Op een dag begint de oude beeldhouwer aan zijn laatste werk. De souplesse en kracht zijn bijna verdwenen uit zijn handen. Zijn ogen zien niet meer scherp, zijn rug kan zijn gewicht amper omhoog houden. Voor een laatste maal spreekt zijn ziel met die van de steen. Hij spreekt over zijn jeugd, zijn geluk, zijn tegenslagen, zijn overwinningen. Hij spreekt over liefde, genade en vergeving. De steen vertelt hem over zijn herkomst, de weg die hij heeft afgelegd, de avonturen die hij heeft meegemaakt. De uren worden dagen, de dagen worden weken.</p>
+
+      <p>Na weken te hebben gesproken met de steen, vlak voor zonsondergang, neemt de oude beeldhouwer een stap terug. Hij kan zijn ogen niet geloven. Hij ziet zichzelf staan: als jonge, levenskrachtige man. Zijn huid zacht, zijn haar golvend, zijn ogen doordrongen van passie en ambitie. Als hij beweegt, beweegt zijn jonge ik met hem mee. Hij blijft zichzelf aankijken. Zijn jonge ik blijft hem uitdagend aankijken. Dit is wie hij altijd gebleven is. Eens gevangen in de hardheid van de wereld, maar bevrijd door de liefde voor zichzelf.</p>
+
+      <blockquote>Want als de muren van het leven ons opsluiten in de hardheid van de wereld, worden wij een met de steen. Maar wij kunnen onszelf bevrijden met de liefde voor wie we zijn. Dan stappen wij uit de steen, bevrijd van wat de wereld van ons af wilde nemen.</blockquote>
+
+      <p><strong>Gerelateerde Bijbelverzen</strong></p>
+
+      <p>Ezechiël 36:26 — "Dan zal Ik u een nieuw hart geven en een nieuwe geest in uw binnenste geven. Ik zal het hart van steen uit uw lichaam wegnemen en u een hart van vlees geven." De overgang van stenen hart naar levend hart — exact de beweging die de beeldhouwer in de steen voltrekt.</p>
+
+      <p>2 Korintiërs 4:16 — "Al vervalt ook onze uiterlijke mens, nochtans wordt de innerlijke mens van dag tot dag vernieuwd." De oude beeldhouwer met zijn zwakke handen en slechte ogen, maar zijn ongebroken innerlijke kern.</p>
+
+      <p>Mattheüs 22:39 — "Heb uw naaste lief als uzelf." Zelfliefde niet als egoïsme, maar als fundament. Zonder die basis is er geen bevrijding uit de hardheid van de wereld.</p>
+    `
+  }
+};
+
+let currentArticle = null;
+
+function openArticle(id) {
+  const art = articles[id];
+  currentArticle = id;
+
+  document.getElementById('av-title').textContent = art.title;
+  document.getElementById('av-meta').textContent = art.meta;
+  document.getElementById('av-body').innerHTML = art.body;
+
+  renderComments(id);
+
+  document.getElementById('articles-grid').style.display = 'none';
+  document.querySelector('.articles-section .section-header').style.display = 'none';
+  document.getElementById('article-view').classList.add('active');
+  window.scrollTo({ top: document.getElementById('teksten').offsetTop - 70, behavior: 'smooth' });
+}
+
+function closeArticle() {
+  document.getElementById('articles-grid').style.display = 'grid';
+  document.querySelector('.articles-section .section-header').style.display = 'block';
+  document.getElementById('article-view').classList.remove('active');
+  currentArticle = null;
+}
+
+function renderComments(id) {
+  const list = document.getElementById('comments-list');
+  const comments = articles[id].comments;
+  if (comments.length === 0) {
+    list.innerHTML = '<p style="color:var(--text-muted);font-style:italic;font-size:0.9rem;">Nog geen reacties. Wees de eerste!</p>';
+    return;
+  }
+  list.innerHTML = comments.map(c => `
+    <div class="comment">
+      <p class="comment-author">${c.name}</p>
+      <p class="comment-date">${c.date}</p>
+      <p class="comment-text">${c.text}</p>
+    </div>
+  `).join('');
+}
+
+function submitComment() {
+  const name = document.getElementById('c-name').value.trim();
+  const text = document.getElementById('c-text').value.trim();
+
+  if (!name || !text) { showNotification('Vul een naam en reactie in.'); return; }
+
+  const today = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+  articles[currentArticle].comments.push({ name, date: today, text });
+  renderComments(currentArticle);
+
+  document.getElementById('c-name').value = '';
+  document.getElementById('c-email').value = '';
+  document.getElementById('c-text').value = '';
+  showNotification('Jouw reactie is geplaatst. Dank je!');
+}
+
+async function subscribeNewsletter() {
+  const email = document.getElementById('nl-email').value.trim();
+  const msg = document.getElementById('nl-message');
+  if (!email || !email.includes('@')) {
+    msg.style.display = 'block';
+    msg.style.color = 'var(--gold)';
+    msg.textContent = 'Vul een geldig e-mailadres in.';
+    return;
+  }
+  try {
+    const response = await fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await response.json();
+    document.getElementById('nl-email').value = '';
+    msg.style.display = 'block';
+    msg.style.color = 'var(--olive)';
+    msg.textContent = data.message;
+  } catch(e) {
+    msg.style.display = 'block';
+    msg.textContent = 'Er ging iets mis. Probeer het later opnieuw.';
+  }
+}
+
+function submitContact() {
+  const name = document.getElementById('ct-name').value.trim();
+  const email = document.getElementById('ct-email').value.trim();
+  const msg = document.getElementById('ct-msg').value.trim();
+  if (!name || !email || !msg) { showNotification('Vul alle velden in.'); return; }
+  document.getElementById('ct-name').value = '';
+  document.getElementById('ct-email').value = '';
+  document.getElementById('ct-subject').value = '';
+  document.getElementById('ct-msg').value = '';
+  showNotification('Bericht verzonden. Ik neem spoedig contact op!');
+}
+
+function showNotification(msg) {
+  const n = document.getElementById('notification');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3500);
+}
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
