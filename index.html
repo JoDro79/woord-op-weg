@@ -429,7 +429,86 @@
   }
   .notification.show { transform: translateY(0); }
 
-  /* ── ANIMATIONS ── */
+  /* ── SERIES ── */
+  .series-card { border-left: 3px solid var(--gold); }
+  .series-card .card-category { color: var(--gold); }
+
+  .series-view {
+    display: none;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .series-view.active { display: block; }
+
+  .series-header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--parchment);
+    margin-bottom: 2rem;
+  }
+
+  .series-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--navy);
+    margin-bottom: 0.3em;
+  }
+
+  .series-header p {
+    color: var(--text-light);
+    font-style: italic;
+    max-width: 540px;
+    margin: 0.5em auto 0;
+  }
+
+  .series-parts-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--parchment);
+  }
+
+  .series-part-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--parchment);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .series-part-item:hover { color: var(--olive); }
+
+  .series-part-number {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    min-width: 2rem;
+  }
+
+  .series-part-info { flex: 1; }
+  .series-part-info h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 0.2em;
+  }
+  .series-part-info p { font-size: 0.9rem; color: var(--text-muted); }
+
+  .series-part-arrow { color: var(--olive); font-style: italic; }
+
+  .series-note {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+  }
+
+  /* ── END SERIES ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -488,7 +567,20 @@
   <!-- Grid view -->
   <div class="articles-grid" id="articles-grid">
 
-    <div class="article-card" onclick="openArticle('david')">
+    <div class="article-card series-card" onclick="openSeries('De Zeven Provinciën')">
+      <img class="card-img" src="https://images.unsplash.com/photo-1590880449155-b54f958ce314?q=80&w=2029&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="David" onerror="this.style.display='none'">
+      <div class="card-body">
+        <p class="card-category">Serie · Geschiendenis</p>
+        <h3 class="card-title">Het ontstaan van een naltenschap.</h3>
+        <p class="card-excerpt">Een verhalende serie over de opkomst van een natie, geboren uit strijd en de onbedwingbare drang naar eigen identiteit.</p>
+        <div class="card-meta">
+          <span>4 delen</span>
+          <a class="card-read-more">Bekijk serie →</a>
+        </div>
+      </div>
+    </div>
+
+	 <div class="article-card" onclick="openArticle('david')">
       <img class="card-img" src="https://images.unsplash.com/photo-1600173293426-65190a24be72?q=80&w=1112&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="David" onerror="this.style.display='none'">
       <div class="card-body">
         <p class="card-category">Geloof</p>
@@ -555,7 +647,18 @@
 
   </div>
 
-  <!-- Single article view -->
+  <!-- Series view -->
+  <div class="series-view" id="series-view">
+    <button class="back-btn" onclick="closeSeries()">← Terug naar overzicht</button>
+    <div id="series-header"></div>
+    <div id="series-parts"></div>
+    <div id="series-part-view" style="display:none;">
+      <button class="back-btn" onclick="closeSeriesPart()" style="margin-top:1rem;">← Terug naar serie</button>
+      <h2 id="spv-title" style="font-family:'Cinzel',serif;color:var(--navy);margin:1rem 0 0.3em;"></h2>
+      <p class="article-meta" id="spv-meta"></p>
+      <div class="article-body" id="spv-body"></div>
+    </div>
+  </div>
   <div class="article-view" id="article-view">
     <button class="back-btn" onclick="closeArticle()">← Terug naar overzicht</button>
     <h2 id="av-title"></h2>
@@ -664,6 +767,106 @@
 <div class="notification" id="notification"></div>
 
 <script>
+// ── Series data ──
+const series = {
+  david: {
+    title: 'David — Dark Horse van God',
+    description: 'Een verhalende serie over roeping, strijd en het verborgen werk van God. David verschijnt niet als held, maar als iemand die gevormd wordt in stilte, in afwijzing, in wachten. Deze serie volgt zijn weg — en misschien ook de onze.',
+    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+    parts: [
+      {
+        id: 'david-1',
+        title: 'Deel 1 — De roeping in het verborgene',
+        date: '27 april 2026',
+        excerpt: 'Hoe God iemand voorbereidt buiten het zicht van de wereld.',
+        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <blockquote>„De HEERE ziet het hart aan." — 1 Samuël 16:7</blockquote>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>`
+      },
+      {
+        id: 'david-2',
+        title: 'Deel 2 — De woestijn als leerschool',
+        date: 'Binnenkort',
+        excerpt: 'Wat de leegte ons leert over vertrouwen.',
+        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`
+      },
+      {
+        id: 'david-3',
+        title: 'Deel 3 — De strijd die niemand ziet',
+        date: 'Binnenkort',
+        excerpt: 'Over de gevechten die worden gevoerd in stilte.',
+        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>`
+      },
+      {
+        id: 'david-4',
+        title: 'Deel 4 — De onverwachte overwinning',
+        date: 'Binnenkort',
+        excerpt: 'Hoe God overwint op manieren die wij niet hadden verwacht.',
+        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>`
+      }
+    ]
+  }
+};
+
+function openSeries(id) {
+  const s = series[id];
+  history.pushState({ series: id }, '', '#serie-' + id);
+
+  document.getElementById('series-header').innerHTML = `
+    <div class="series-header">
+      <h2>${s.title}</h2>
+      <p>${s.description}</p>
+    </div>
+  `;
+
+  document.getElementById('series-parts').innerHTML = `
+    <p class="series-parts-title">Delen van deze serie</p>
+    ${s.parts.map((part, i) => `
+      <div class="series-part-item" onclick="openSeriesPart('${id}', ${i})">
+        <span class="series-part-number">${i + 1}.</span>
+        <div class="series-part-info">
+          <h4>${part.title}</h4>
+          <p>${part.excerpt}</p>
+        </div>
+        <span class="series-part-arrow">${part.date === 'Binnenkort' ? '<em>Binnenkort</em>' : 'Lees meer →'}</span>
+      </div>
+    `).join('')}
+    <p class="series-note">Nieuwe delen verschijnen op deze pagina zodra ze gepubliceerd zijn.</p>
+  `;
+
+  document.getElementById('series-part-view').style.display = 'none';
+  document.getElementById('articles-grid').style.display = 'none';
+  document.querySelector('.articles-section .section-header').style.display = 'none';
+  document.getElementById('series-view').classList.add('active');
+  window.scrollTo({ top: document.getElementById('teksten').offsetTop - 70, behavior: 'smooth' });
+}
+
+function closeSeries() {
+  history.pushState({}, '', '#');
+  document.getElementById('articles-grid').style.display = 'grid';
+  document.querySelector('.articles-section .section-header').style.display = 'block';
+  document.getElementById('series-view').classList.remove('active');
+}
+
+function openSeriesPart(seriesId, partIndex) {
+  const part = series[seriesId].parts[partIndex];
+  if (part.date === 'Binnenkort') return;
+
+  document.getElementById('spv-title').textContent = part.title;
+  document.getElementById('spv-meta').textContent = `Categorie: Geloof · ${part.date} · door Verbius`;
+  document.getElementById('spv-body').innerHTML = part.body;
+  document.getElementById('series-parts').style.display = 'none';
+  document.getElementById('series-header').style.display = 'none';
+  document.getElementById('series-part-view').style.display = 'block';
+  window.scrollTo({ top: document.getElementById('teksten').offsetTop - 70, behavior: 'smooth' });
+}
+
+function closeSeriesPart() {
+  document.getElementById('series-parts').style.display = 'block';
+  document.getElementById('series-header').style.display = 'block';
+  document.getElementById('series-part-view').style.display = 'none';
+}
+
 // ── Article data ──
 const articles = {
   david: {
@@ -776,6 +979,14 @@ const articles = {
       <p>Na weken te hebben gesproken met de steen, vlak voor zonsondergang, neemt de oude beeldhouwer een stap terug. Hij kan zijn ogen niet geloven. Hij ziet zichzelf staan: als jonge, levenskrachtige man. Zijn huid zacht, zijn haar golvend, zijn ogen doordrongen van passie en ambitie. Als hij beweegt, beweegt zijn jonge ik met hem mee. Hij blijft zichzelf aankijken. Zijn jonge ik blijft hem uitdagend aankijken. Dit is wie hij altijd gebleven is. Eens gevangen in de hardheid van de wereld, maar bevrijd door de liefde voor zichzelf.</p>
 
       <blockquote>Want als de muren van het leven ons opsluiten in de hardheid van de wereld, worden wij een met de steen. Maar wij kunnen onszelf bevrijden met de liefde voor wie we zijn. Dan stappen wij uit de steen, bevrijd van wat de wereld van ons af wilde nemen.</blockquote>
+
+      <p><strong>Gerelateerde Bijbelverzen</strong></p>
+
+      <p>Ezechiël 36:26 — "Dan zal Ik u een nieuw hart geven en een nieuwe geest in uw binnenste geven. Ik zal het hart van steen uit uw lichaam wegnemen en u een hart van vlees geven." De overgang van stenen hart naar levend hart — exact de beweging die de beeldhouwer in de steen voltrekt.</p>
+
+      <p>2 Korintiërs 4:16 — "Al vervalt ook onze uiterlijke mens, nochtans wordt de innerlijke mens van dag tot dag vernieuwd." De oude beeldhouwer met zijn zwakke handen en slechte ogen, maar zijn ongebroken innerlijke kern.</p>
+
+      <p>Mattheüs 22:39 — "Heb uw naaste lief als uzelf." Zelfliefde niet als egoïsme, maar als fundament. Zonder die basis is er geen bevrijding uit de hardheid van de wereld.</p>
     `
   },
   kindschap: {
@@ -863,7 +1074,6 @@ const articles = {
 let currentArticle = null;
 
 function openArticle(id) {
-	history.pushState({ article: id }, '', '#' + id);
   const art = articles[id];
   currentArticle = id;
 
@@ -878,16 +1088,8 @@ function openArticle(id) {
   document.getElementById('article-view').classList.add('active');
   window.scrollTo({ top: document.getElementById('teksten').offsetTop - 70, behavior: 'smooth' });
 }
-window.addEventListener('popstate', function(e) {
-  if (e.state && e.state.article) {
-    openArticle(e.state.article);
-  } else {
-    closeArticle();
-  }
-});
 
 function closeArticle() {
-	history.pushState({}, '', '#');
   document.getElementById('articles-grid').style.display = 'grid';
   document.querySelector('.articles-section .section-header').style.display = 'block';
   document.getElementById('article-view').classList.remove('active');
