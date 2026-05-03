@@ -567,11 +567,11 @@
   <!-- Grid view -->
   <div class="articles-grid" id="articles-grid">
 
-    <div class="article-card series-card" onclick="openSeries('De Zeven Provinciën')">
+    <div class="article-card series-card" onclick="openSeries('provincieen')">
       <img class="card-img" src="https://images.unsplash.com/photo-1590880449155-b54f958ce314?q=80&w=2029&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="David" onerror="this.style.display='none'">
       <div class="card-body">
-        <p class="card-category">Serie · Geschiendenis</p>
-        <h3 class="card-title">Het ontstaan van een naltenschap.</h3>
+        <p class="card-category">Serie · Geschiedenis</p>
+        <h3 class="card-title">Het ontstaan van een nalatenschap</h3>
         <p class="card-excerpt">Een verhalende serie over de opkomst van een natie, geboren uit strijd en de onbedwingbare drang naar eigen identiteit.</p>
         <div class="card-meta">
           <span>4 delen</span>
@@ -769,39 +769,40 @@
 <script>
 // ── Series data ──
 const series = {
-  david: {
-    title: 'David — Dark Horse van God',
-    description: 'Een verhalende serie over roeping, strijd en het verborgen werk van God. David verschijnt niet als held, maar als iemand die gevormd wordt in stilte, in afwijzing, in wachten. Deze serie volgt zijn weg — en misschien ook de onze.',
-    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+  provincieen: {
+    title: 'De Zeven Provinciën',
+    description: 'Een verhalende serie over de opkomst van een natie, geboren uit strijd en de onbedwingbare drang naar eigen identiteit. Het ontstaan van een nalatenschap die tot op de dag van vandaag doorwerkt.',
+    image: 'https://images.unsplash.com/photo-1590880449155-b54f958ce314?q=80&w=2029&auto=format&fit=crop',
     parts: [
       {
-        id: 'david-1',
-        title: 'Deel 1 — De roeping in het verborgene',
-        date: '27 april 2026',
-        excerpt: 'Hoe God iemand voorbereidt buiten het zicht van de wereld.',
-        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-        <blockquote>„De HEERE ziet het hart aan." — 1 Samuël 16:7</blockquote>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>`
+        id: 'prov-1',
+        title: 'Deel 1 — De opstand begint',
+        date: '1 mei 2026',
+        excerpt: 'Hoe een handvol provinciën het grootste rijk ter wereld durfde te trotseren.',
+        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <blockquote>„Wij zijn vrij geboren en wensen vrij te sterven." — Wilhelmus van Nassauwe</blockquote>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>`
       },
       {
-        id: 'david-2',
-        title: 'Deel 2 — De woestijn als leerschool',
+        id: 'prov-2',
+        title: 'Deel 2 — De Unie van Utrecht',
         date: 'Binnenkort',
-        excerpt: 'Wat de leegte ons leert over vertrouwen.',
-        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`
-      },
-      {
-        id: 'david-3',
-        title: 'Deel 3 — De strijd die niemand ziet',
-        date: 'Binnenkort',
-        excerpt: 'Over de gevechten die worden gevoerd in stilte.',
+        excerpt: 'Zeven gewesten smeden een verbond dat de geschiedenis zal bepalen.',
         body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>`
       },
       {
-        id: 'david-4',
-        title: 'Deel 4 — De onverwachte overwinning',
+        id: 'prov-3',
+        title: 'Deel 3 — De Gouden Eeuw',
         date: 'Binnenkort',
-        excerpt: 'Hoe God overwint op manieren die wij niet hadden verwacht.',
+        excerpt: 'Hoe een kleine republiek de wereld veroverde met kennis en handel.',
+        body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>`
+      },
+      {
+        id: 'prov-4',
+        title: 'Deel 4 — Het nalatenschap',
+        date: 'Binnenkort',
+        excerpt: 'Wat de Zeven Provinciën ons vandaag nog te zeggen hebben.',
         body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>`
       }
     ]
