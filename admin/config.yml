@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: JoDro79/woord-op-weg
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "artikelen"
+    label: "Artikelen"
+    folder: "_artikelen"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "DD MMMM YYYY", date_format: "DD MMMM YYYY", time_format: false }
+      - { label: "Auteur", name: "author", widget: "string", default: "Verbius" }
+      - { label: "Categorie", name: "category", widget: "select", options: ["Geloof", "Bezinning", "Bijbel", "Gebed"] }
+      - { label: "Samenvatting", name: "excerpt", widget: "text" }
+      - { label: "Inhoud", name: "body", widget: "markdown" }
+      - { label: "Uitgelichte afbeelding", name: "image", widget: "image", required: false }
