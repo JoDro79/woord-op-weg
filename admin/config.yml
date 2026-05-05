@@ -2,6 +2,8 @@ backend:
   name: github
   repo: JoDro79/woord-op-weg
   branch: main
+  base_url: https://blue-heart-3702.jodro79.workers.dev
+  auth_endpoint: /auth
 
 media_folder: "images"
 public_folder: "/images"
