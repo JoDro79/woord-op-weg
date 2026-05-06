@@ -706,36 +706,17 @@
 </section>
 
 <!-- NIEUWSBRIEF -->
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
-<style>
-  /* Brevo form — gestyled in Woord op Weg huisstijl */
-  #sib-container { display:none !important; }
-  .sib-form { background:transparent !important; }
-  .sib-form-message-panel {
-    max-width: 480px !important;
-    margin: 0.8rem auto 0 !important;
-    font-family: 'Cormorant Garamond', serif !important;
-    font-size: 1rem !important;
-    border-radius: 0 !important;
-  }
-  #error-message  { background-color:#fff0f0 !important; border-color:var(--gold) !important; color:#661d1d !important; }
-  #success-message { background-color:#f0f7f0 !important; border-color:var(--olive) !important; color:#085229 !important; }
-</style>
-
 <section class="newsletter-section fade-in" id="nieuwsbrief">
   <div class="newsletter-inner">
     <div class="ornament"><span>✦</span></div>
     <h2 class="section-title" style="font-style:italic;">Blijf onderweg met mij</h2>
     <p style="color:var(--text-light); margin-top:0.5em;">Ontvang mijn nieuwsbrief met nieuwe inzichten en verhalen.</p>
 
-    <!-- Brevo formulier — alleen het functionele gedeelte, eigen styling -->
-    <form id="sib-form" method="POST"
+    <form method="POST"
       action="https://1d8a10ab.sibforms.com/serve/MUIFAKv_QutZyKa--weG_Z7lnMOCPNS_EoI0AoPGrI_8s8FAJ_jpio0aqFM0GrqYp8jGgsItGyVA95hria-Z7L-vHcMiV9yH3FsOArdSJW1WgZK-VF7dXTTqgsAP9YL5PhvHhsNGEJt_3HgVd66i6vI-rswz80sIdwcLs5y97IKe4WzNX6x6YAC5NSC-2mL1Ul1WUz1Ltv5W9dtPWg=="
-      data-type="subscription"
       style="margin-top:1.5rem;">
       <div class="newsletter-form">
-        <input type="email" id="EMAIL" name="EMAIL" autocomplete="off"
-          placeholder="Jouw e-mailadres..." data-required="true" required
+        <input type="email" name="EMAIL" placeholder="Jouw e-mailadres..." required
           style="flex:1;border:none;padding:0.8em 1.2em;font-size:0.95rem;background:#fff;font-family:'EB Garamond',serif;color:var(--text);outline:none;">
         <button type="submit"
           style="background:var(--navy);color:#fff;border:none;padding:0.8em 1.5em;font-family:'Cormorant Garamond',serif;font-size:0.95rem;letter-spacing:0.08em;cursor:pointer;white-space:nowrap;transition:background 0.2s;"
@@ -744,17 +725,9 @@
           Meld je aan
         </button>
       </div>
-      <input type="text" name="email_address_check" value="" class="input--hidden" style="display:none;">
+      <input type="text" name="email_address_check" value="" style="display:none;">
       <input type="hidden" name="locale" value="nl">
     </form>
-
-    <!-- Brevo succes/foutmeldingen -->
-    <div id="error-message" class="sib-form-message-panel" style="display:none;font-size:0.95rem;text-align:center;font-family:'Cormorant Garamond',serif;color:#661d1d;background-color:#fff0f0;border:1px solid var(--gold);padding:0.7em 1em;max-width:480px;margin:0.8rem auto 0;">
-      Je aanmelding kon niet worden opgeslagen. Probeer het opnieuw.
-    </div>
-    <div id="success-message" class="sib-form-message-panel" style="display:none;font-size:0.95rem;text-align:center;font-family:'Cormorant Garamond',serif;color:#085229;background-color:#f0f7f0;border:1px solid var(--olive);padding:0.7em 1em;max-width:480px;margin:0.8rem auto 0;">
-      Welkom! Je aanmelding is gelukt.
-    </div>
   </div>
 </section>
 
@@ -1327,14 +1300,5 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     tokenStorage: "localStorage"
   });
 </script>
-<script>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-  window.LOCALE = 'nl';
-  window.EMAIL_INVALID_MESSAGE = "Ongeldig e-mailadres. Controleer het en probeer opnieuw.";
-  window.REQUIRED_ERROR_MESSAGE = "Dit veld mag niet leeg zijn.";
-  window.GENERIC_INVALID_MESSAGE = "De verstrekte informatie is onjuist. Probeer het opnieuw.";
-  var AUTOHIDE = Boolean(0);
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 </body>
 </html>
