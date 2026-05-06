@@ -567,6 +567,19 @@
   <!-- Grid view -->
   <div class="articles-grid" id="articles-grid">
 
+    <div class="article-card" onclick="openArticle('droogdok')">
+      <img class="card-img" src="https://assets.plaece.nl/thumb/DJqDBLHort6Klzvbcd5-DtufgdMasnMoh8F2RVHic-Y/resizing_type:fit/width:1900/height:0/gravity:sm/enlarge:0/aHR0cHM6Ly9hc3NldHMucGxhZWNlLm5sL29kcC12b29ybmVwdXR0ZW4vaW1hZ2UvZHJvb2dkb2stamFuLWJsYW5rZW4tdm9vcm5lLXB1dHRlbi1oZWxsZXZvZXRzbHVpc183NTg1NzE2MzguanBn.webp" alt="Het droogdok van Jan Blanken" onerror="this.style.display='none'">
+      <div class="card-body">
+        <p class="card-category">Geschiedenis</p>
+        <h3 class="card-title">Het Dok dat Niet Bewoog</h3>
+        <p class="card-excerpt">Aan de rand van Hellevoetsluis ligt een plek die niet schreeuwt om aandacht. Het droogdok van Jan Blanken is geen monument dat zich opdringt — het wacht, zoals water wacht, zoals steen wacht.</p>
+        <div class="card-meta">
+          <span>5 mei 2026</span>
+          <a class="card-read-more">Lees meer →</a>
+        </div>
+      </div>
+    </div>
+
     <div class="article-card series-card" onclick="openSeries('provincieen')">
       <img class="card-img" src="https://images.unsplash.com/photo-1590880449155-b54f958ce314?q=80&w=2029&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="David" onerror="this.style.display='none'">
       <div class="card-body">
@@ -870,6 +883,93 @@ function closeSeriesPart() {
 
 // ── Article data ──
 const articles = {
+  droogdok: {
+    title: 'Het Dok dat Niet Bewoog',
+    meta: 'Categorie: Geschiedenis · 5 mei 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--text-light);border-left:3px solid var(--sand);padding-left:1.2rem;margin-bottom:2em;">Jan Blanken en het stille wonder van Hellevoetsluis</p>
+
+      <p>Aan de rand van Hellevoetsluis, waar de wind nog altijd ruist langs oude kademuren, ligt een plek die niet schreeuwt om aandacht. Het droogdok van Jan Blanken is geen monument dat zich opdringt. Het is eerder een plek die wacht, zoals water kan wachten, zoals steen kan wachten. Tot iemand de tijd neemt om te zien wat hier werkelijk is gebeurd.</p>
+
+      <p>Aan het einde van de achttiende eeuw stond hier een jonge opzichter, nauwelijks twintig jaar oud, met modder aan zijn laarzen en plannen in zijn hoofd die groter waren dan de haven waarin hij werkte. Jan Blanken Janszoon, zoon van een timmerman uit Bergambacht, keek naar de schepen die men nog altijd op hun zij trok om te repareren. Een eeuwenoude methode, zwaar en gevaarlijk. Hij zag het en wist: dit kan anders.</p>
+
+      <p>Wat hij voor zich zag, bestond in Nederland nog niet. Een dok dat niet bewoog. Een bassin dat je niet hoefde te kantelen of te slepen, maar dat je kon leegpompen, zodat het schip bleef waar het was, en de mensen eromheen konden werken. Een plek waar water geen vijand was, maar een partner die je tijdelijk op afstand hield.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://www.demooistedroneplaatsen.nl/wp-content/uploads/2025/08/Hellevoetsluis-Droogdok-Jan-Blanken.jpg" alt="De oude haven van Hellevoetsluis" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">De kademuren van Hellevoetsluis — stille getuigen van een maritiem verleden.</figcaption>
+      </figure>
+
+      <p>Het idee was eenvoudig. De uitvoering niet.</p>
+
+      <p>Het dok dat Blanken ontwierp zou 157 meter lang worden, 32 meter breed, en de vloer zou ongeveer zes meter onder het waterniveau liggen. Die diepte was geen toeval. Het moest voldoende zijn om de grote marineschepen van zijn tijd binnen te laten varen, maar niet zo diep dat de druk van het grondwater de vloer omhoog zou duwen. Daarom liet hij ongeveer vijfduizend houten palen in de bodem slaan, een bos van hout dat je nooit ziet, maar dat alles draagt.</p>
+
+      <p>Daarboven kwamen miljoenen stenen, laag voor laag, in een tijd waarin elke steen met de hand werd gelegd. En om het dok leeg te pompen, haalde Blanken een van de eerste stoommachines van James Watt naar Nederland. Een metalen hart dat het water wegzoog en ruimte maakte voor lucht, licht en arbeid.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/0d/0b/b6/photo1jpg.jpg?w=1000&h=-1&s=1" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">Het droogdok — 157 meter lang, gebouwd op een woud van houten palen die de bodem vasthouden.</figcaption>
+      </figure>
+
+      <p>In 1806 gleed het fregat Euridice als eerste het dok binnen. Het water zakte. De vloer kwam tevoorschijn. En voor het eerst stond een Nederlands marineschip droog zonder geweld, zonder touwen, zonder gevaar. Het dok werkte. En het bleef werken, meer dan een eeuw lang.</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Hoe het ene dok het andere baarde: van kieldok naar timmerdok</h3>
+
+      <p>Maar het verhaal van Jan Blanken eindigt niet bij dat eerste dok. Het begint er pas.</p>
+
+      <p>Wie goed kijkt, ziet dat het droogdok eigenlijk uit twee delen bestaat: het kieldok, waar schepen kort konden worden onderzocht, en daarachter het timmerdok, waar het echte werk gebeurde. Die tweedeling was geen vooraf bedacht meesterplan. Het was het resultaat van ervaring: van kijken, meten, falen, verbeteren.</p>
+
+      <p>Toen het kieldok eenmaal in gebruik was, stond Blanken vaak aan de rand van het bassin. Hij keek hoe het water zakte, hoe een schip langzaam op de houten blokken tot stilstand kwam, hoe timmerlieden en touwslagers hun werk begonnen. Hij zag waar het goed ging, maar vooral waar het beter kon. Een dok is geen tekening. Een dok is een gesprek tussen steen, water en hout.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://www.bestemmingbuitenlucht.nl/wp-content/uploads/2020/09/droogdok-aquaduct-800x602.jpg" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">Het kieldok van binnenuit — de vloer die zichtbaar wordt wanneer het water is weggepompt.</figcaption>
+      </figure>
+
+      <p>In het kieldok ontdekte Blanken dat schepen meer ruimte nodig hadden om veilig te manoeuvreren. Dat de werkvloer breder moest zijn. Dat de helling van de dokvloer subtieler moest verlopen om de kiel te dragen zonder spanning. Dat de pompcapaciteit groter moest worden om sneller te kunnen werken. En dat een dok niet alleen een plek van onderhoud was, maar ook van herstel, van wederopbouw.</p>
+
+      <p>Zo groeide het idee van een tweede dok, een timmerdok dat dieper, ruimer en praktischer was. Een plek waar een schip niet alleen droog stond, maar waar het kon worden vernieuwd. Waar vakmanschap de ruimte kreeg. Waar tijd geen vijand was, maar een bondgenoot.</p>
+
+      <p>Het timmerdok werd het logische vervolg op het kieldok. Niet als kopie, maar als volwassen versie. Niet als uitbreiding, maar als doorontwikkeling.</p>
+
+      <p>En zo ontstond een complex dat zijn tijd ver vooruit was: twee dokken, verbonden maar verschillend, elk met een eigen functie, elk geboren uit dezelfde geest van geduldige innovatie. Het is alsof Blanken begreep dat vooruitgang niet in sprongen komt, maar in stappen. Dat je eerst moet zien wat werkt, voordat je kunt bouwen wat ontbreekt.</p>
+
+      <blockquote>„Een dok is geen tekening. Een dok is een gesprek tussen steen, water en hout."</blockquote>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">De hand die het werk mogelijk maakte</h3>
+
+      <p>Grote werken ontstaan zelden uit één geest alleen. Zelfs een visionair als Jan Blanken had iemand nodig die zei: doe het maar. En dat gebeurde in een tijd waarin Nederland zelf wankelde.</p>
+
+      <p>Toen Blanken zijn plannen voor een modern droogdok presenteerde, was het land in beweging. De oude Republiek was gevallen, de Bataafse Republiek was geboren, en de marine, ooit de trots van de zeventiende eeuw, verkeerde in verval. Schepen lagen te rotten, havens verzandden, en de vloot had dringend onderhoud nodig. Het was in die onrust dat Blanken zijn kans kreeg.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Jan_Blanken.jpeg/960px-Jan_Blanken.jpeg" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">De marine in verval — de urgentie die Blankens werk mogelijk maakte.</figcaption>
+      </figure>
+
+      <p>Zijn directe opdrachtgever was het Departement van Marine, de voorloper van het latere Ministerie van Marine. Maar achter die naam schuilde vooral één man: viceadmiraal Jan Hendrik van Kinsbergen.</p>
+
+      <p>Van Kinsbergen was een zeeman van de oude stempel, maar met een blik die verder reikte dan traditie. Hij kende de staat van de vloot, hij wist hoe kwetsbaar Nederland was zonder goed onderhouden schepen, en hij zag in Blanken iemand die niet alleen plannen maakte, maar oplossingen bracht. Het was Van Kinsbergen die het belang van een modern droogdok verdedigde in Den Haag, die de politieke weerstand trotseerde, en die Blanken het vertrouwen gaf dat hij nodig had.</p>
+
+      <p>Later, onder het bewind van Lodewijk Napoleon, kreeg het project opnieuw steun. De koning, die zich graag presenteerde als bouwer en hervormer, zag in het droogdok een symbool van moderniteit en nationale kracht. Hij bezocht Hellevoetsluis persoonlijk en gaf Blanken de ruimte om door te bouwen, zelfs toen geld en materialen schaars waren.</p>
+
+      <p>Zo werd het droogdok niet alleen een technisch meesterwerk, maar ook een politiek project, gedragen door een zeldzame combinatie van militaire noodzaak, bestuurlijke visie en persoonlijk vertrouwen.</p>
+
+      <blockquote>„Blanken bouwde het dok. Maar anderen maakten het mogelijk dat hij kon bouwen."</blockquote>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://www.schuttevaer.nl/wp-content/uploads/2023/05/NEU2322-opleidingsschip-e1684918035921.jpg" style="width:100%;max-height:420px;object-fit:cover;object-position:top;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">Het droogdok vandaag — meer dan twee eeuwen oud, en nog altijd aanwezig.</figcaption>
+      </figure>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Wat blijft</h3>
+
+      <p>Misschien is dat de stille kracht van het droogdok: dat het ons herinnert aan wat er kan ontstaan wanneer inzicht en vertrouwen elkaar vinden. Wanneer iemand ziet wat nog niet bestaat en iemand anders zegt: ga verder.</p>
+
+      <p>Het dok beweegt niet. Het water wel. Ergens daartussen, in die spanning van rust en beweging, ligt het verhaal van Jan Blanken: een verhaal dat niet alleen gaat over steen en water, maar over moed, geduld en de kunst om te bouwen aan wat blijft.</p>
+    `
+  },
   david: {
     title: 'David — Dark Horse van God',
     meta: 'Categorie: Geloof · 27 april 2026 · door Verbius',
