@@ -567,6 +567,19 @@
   <!-- Grid view -->
   <div class="articles-grid" id="articles-grid">
 
+    <div class="article-card" onclick="openArticle('coen')">
+      <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Jan_Pieterszoon_Coen.jpg/800px-Jan_Pieterszoon_Coen.jpg" alt="Jan Pieterszoon Coen" style="object-position:top;" onerror="this.style.display='none'">
+      <div class="card-body">
+        <p class="card-category">Bezinning</p>
+        <h3 class="card-title">Wie we eren, worden we</h3>
+        <p class="card-excerpt">Op het plein in Hoorn staat hij nog altijd: Jan Pieterszoon Coen. Held voor de één, aanklager voor de ander. Maar wat zegt het over ons, dat hij er nog staat?</p>
+        <div class="card-meta">
+          <span>9 mei 2026</span>
+          <a class="card-read-more">Lees meer →</a>
+        </div>
+      </div>
+    </div>
+
     <div class="article-card" onclick="openArticle('droogdok')">
       <img class="card-img" src="https://assets.plaece.nl/thumb/DJqDBLHort6Klzvbcd5-DtufgdMasnMoh8F2RVHic-Y/resizing_type:fit/width:1900/height:0/gravity:sm/enlarge:0/aHR0cHM6Ly9hc3NldHMucGxhZWNlLm5sL29kcC12b29ybmVwdXR0ZW4vaW1hZ2UvZHJvb2dkb2stamFuLWJsYW5rZW4tdm9vcm5lLXB1dHRlbi1oZWxsZXZvZXRzbHVpc183NTg1NzE2MzguanBn.webp" alt="Het droogdok van Jan Blanken" onerror="this.style.display='none'">
       <div class="card-body">
@@ -895,6 +908,82 @@ function closeSeriesPart() {
 
 // ── Article data ──
 const articles = {
+  coen: {
+    title: 'Wie we eren, worden we',
+    meta: 'Categorie: Bezinning · 9 mei 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--text-light);border-left:3px solid var(--sand);padding-left:1.2rem;margin-bottom:2em;">Jan Pieterszoon Coen, standbeelden en de vraag wie we verheerlijken</p>
+
+      <p>Op het plein in Hoorn staat hij nog altijd: Jan Pieterszoon Coen. Geboren in 1587, als dertienjarige naar Rome gestuurd om boekhouder te worden, later de stichter van Batavia. Zijn standbeeld staat hoog op zijn sokkel, de blik vooruit, de hand aan de heup, alsof hij nog steeds bevelen geeft aan een wereld die allang is veranderd. Wie hem wil bewonderen, moet omhoog kijken; hij kijkt over je heen, naar de horizon, naar wat komen gaat.</p>
+
+      <p>Aan zijn voeten verzamelt zich een menigte — maar niet één menigte, maar twee. Aan de ene kant staan zij die hem zien als held: de bouwer van Batavia, de man van daadkracht, een symbool van de Gouden Eeuw. Aan de andere kant staan mensen met borden waarop namen staan van eilanden die bijna niemand kent, jaartallen die in geen enkel schoolboek voorkomen, woorden als Banda, slachting, koloniale misdaad.</p>
+
+      <p>Tussen die twee groepen staat het standbeeld zelf: een man die door de één wordt vereerd en door de ander aangeklaagd. En terwijl de wind langs het plein waait, blijft één gedachte hangen: <strong>wie we eren, worden we</strong>.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="FOTO_1_COEN_STANDBEELD_HOORN.jpg" alt="Het standbeeld van Jan Pieterszoon Coen in Hoorn" style="width:100%;max-height:420px;object-fit:cover;object-position:top;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">Het standbeeld van Jan Pieterszoon Coen op de Roode Steen in Hoorn — onthuld in 1893, nog altijd omstreden.</figcaption>
+      </figure>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">De droom en het plan</h3>
+
+      <p>Om te begrijpen wie hij was, moeten we het plein achter ons laten en teruggaan naar het begin — naar het moment waarop Coen nog geen standbeeld was, geen symbool, geen splijtzwam. Hij was een jonge man, vol ambitie en overtuiging, met een scherp organisatorisch talent en een instinct voor handel. Hij kende de verhalen over de rijkdommen van de Oost en wilde deel uitmaken van die wereld. Hij zag zichzelf als instrument van iets groters, als iemand die door God werd geroepen om orde te brengen in een wereld die volgens hem te veel door chaos werd geregeerd.</p>
+
+      <p>In 1607 maakt hij zijn eerste reis naar de Oost. Hij stapt aan boord van de <em>Hoorn</em>, niet wetend dat de oceaan hem zal vormen zoals een smid ijzer vormt: met vuur, druk en onverbiddelijke slagen. Tijdens de tocht wordt de expeditie getroffen door een klap die niemand had voorzien. Pieter Willemszoon Verhoeff, de leider, wordt vermoord door de Bandanezen. Wanneer Coen terugkeert in Nederland, is hij dezelfde man — maar ook niet. Iets in hem is ontkiemd: een zaadje van overtuiging, van roeping, van iets dat groter is dan hijzelf.</p>
+
+      <p>In 1612 vertrekt hij opnieuw. Tegenslagen zijn, zo gelooft hij, beproevingen van God. De Bandanezen namen het leven van zijn voormalige leider, maar niet het leven van zijn droom.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="FOTO_2_VOC_SCHIP.jpg" alt="Een VOC-schip uit de zeventiende eeuw" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">De VOC-vloot — het vaartuig van een wereldmacht en haar ambities.</figcaption>
+      </figure>
+
+      <p>Ze bereiken Bantam. De factorij ligt in puin. Coen knielt neer, neemt een handvol as op en laat het door zijn vingers glijden. "Hier," zegt hij zacht, "begint het opnieuw." Waar anderen puin zien, ziet hij structuren. Waar anderen chaos zien, ziet hij patronen. De factorij is dood, maar de handel leeft nog — en hij zal haar opnieuw vormgeven.</p>
+
+      <p>Coen steeg op: boekhouder-generaal, directeur-generaal, gouverneur-generaal. Elke stap een bevestiging. Niet dat hij gelijk had, maar dat hij nodig was.</p>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Volledige controle en macht</h3>
+
+      <p>Als gouverneur-generaal ziet hij zijn titel niet als eindstation, maar als noodzakelijke fase. Hij schrijft: <em>"Geen handel kan zonder oorlog, geen oorlog zonder handel."</em> Voor hem is het geen spreuk, maar een wet. De VOC moet de enige speler zijn. Alleen dan kan er orde zijn.</p>
+
+      <p>Met die overtuiging vaart hij naar Banda, de geboorteplek van nootmuskaat. De Bandanezen willen geen exclusieve handel. Ze kennen de waarde van hun product. Ze weten dat handel vrijheid is. Voor Coen is hun weerstand verraad. Een contract is heilig. Het breken ervan is het breken van zijn orde.</p>
+
+      <blockquote>„Geen handel zonder oorlog, geen oorlog zonder handel."</blockquote>
+
+      <p>Wanneer alle woorden falen, kiest hij voor daden. Op de eilanden verrijst een nieuwe creatie: perkeniers, plantages, slaven. Een systeem dat niet meer wankelt, niet meer twijfelt, niet meer ongehoorzaam is. Coen heeft de controle. Complete controle.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="FOTO_3_BANDA_EILANDEN.jpg" alt="De Banda-eilanden" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">De Banda-eilanden — de geboorteplaats van nootmuskaat, en van een van de zwartste bladzijden uit de Nederlandse geschiedenis.</figcaption>
+      </figure>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Het instrument, maar van wie?</h3>
+
+      <p>Wat er uiteindelijk van Jan Pieterszoon Coen overblijft, zijn zijn daden en de honderden brieven waarin hij zichzelf verantwoordt. In die brieven keert één overtuiging steeds terug: hij ziet zijn werk als een goddelijke opdracht. Tegenslag is voor hem een beproeving die God geeft om zijn geloof te testen; succes is het bewijs dat God aan zijn kant staat.</p>
+
+      <p>Deze overtuiging komt voort uit zijn streng-calvinistische achtergrond. In dat wereldbeeld is Gods voorzienigheid allesomvattend: alles wat gebeurt, is onderdeel van Gods plan. Voor Coen is die roeping het beheersen van de handel in Oost-Indië. Orde is heilig, chaos is zonde.</p>
+
+      <p>Maar hier ontstaat een gevaarlijke verschuiving. Coen gebruikt zijn religieuze overtuiging als morele rechtvaardiging voor geweld. Als hij Gods plan uitvoert, dan is verzet tegen hem verzet tegen God. Zo ontstaat een logica waarin geweld niet langer een uiterste middel is, maar een noodzakelijk instrument om "orde" te brengen.</p>
+
+      <p>De Bijbel leert juist het tegendeel. Jezus leert barmhartigheid: <em>"Zalig zijn de barmhartigen."</em> (Matteüs 5:7). Hij leert vergeving: <em>"Vergeef, en u zal vergeven worden."</em> (Lukas 6:37). En zorg voor de zwakken: <em>"Wat u gedaan hebt voor één van de geringsten, hebt u voor Mij gedaan."</em> (Matteüs 25:40).</p>
+
+      <p>Coen was geen instrument van God. Hij gebruikte God als instrument voor zijn eigen doelen.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="FOTO_4_BATAVIA_HISTORISCH.jpg" alt="Historische afbeelding van Batavia" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">Batavia — gebouwd op de resten van Jacarta, uitgegroeid tot het hart van een handelsimperium.</figcaption>
+      </figure>
+
+      <h3 style="font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">Het beeld dat reflecteert</h3>
+
+      <p>We staan weer bij het beeld. De menigte die het plein eerder verdeelde, is naar huis gegaan. Op de Roode Steen staat hij nog altijd, vastgelegd in brons. Het werd onthuld in 1893, in een tijd waarin Nederland zijn koloniale verleden vooral als heldhaftig en economisch succesvol presenteerde.</p>
+
+      <p>Maar het beeld is gegroeid — niet in omvang, maar in betekenis. Het is een blijvende herinnering aan de strijd die leefde in een man die voor de VOC van groot belang was. Hij was een talentvol man, maar zijn talenten waren het probleem niet. Dat was zijn hart. Zijn persoonlijke overtuiging. Zijn geloof dat mensenlevens onderdeel waren van het spel om macht.</p>
+
+      <p>Niet de God van de Bijbel, de God die hij nodig had om zijn droom te verwezenlijken. Een God die hij zelf vormde, naar zijn eigen beeld. Niet de God naar Wie wij zijn geschapen. Het is een fout die mensen vandaag nog steeds maken, elke dag opnieuw.</p>
+    `
+  },
   droogdok: {
     title: 'Het dok dat niet bewoog',
     meta: 'Categorie: Geschiedenis · 5 mei 2026 · door Verbius',
