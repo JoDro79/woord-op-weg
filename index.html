@@ -1385,7 +1385,6 @@ window.addEventListener('popstate', function(e) {
 (function() {
   const hash = window.location.hash.replace('#', '');
   if (!hash) return;
-  // Negeer voetnoot-hashes (fn1, fn2, ref1, ref2 etc.)
   if (hash.startsWith('fn') || hash.startsWith('ref')) return;
   if (hash.startsWith('serie-')) {
     const seriesId = hash.replace('serie-', '');
@@ -1395,19 +1394,13 @@ window.addEventListener('popstate', function(e) {
   }
 })();
 
-// Voetnoot-navigatie: klik op [n] scrolt naar voetnoot zonder URL-routing te triggeren
+// Voetnoot-links scrollen zonder URL-routing te triggeren
 document.addEventListener('click', function(e) {
   const a = e.target.closest('a[href^="#fn"], a[href^="#ref"]');
   if (!a) return;
   e.preventDefault();
-  const targetId = a.getAttribute('href').replace('#', '');
-  const target = document.getElementById(targetId);
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    // Kort highlight effect
-    target.style.background = 'rgba(var(--gold-rgb, 180,140,60), 0.15)';
-    setTimeout(() => target.style.background = '', 1500);
-  }
+  const target = document.getElementById(a.getAttribute('href').replace('#', ''));
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 function renderComments(id) {
