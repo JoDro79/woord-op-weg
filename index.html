@@ -567,6 +567,19 @@
   <!-- Grid view -->
   <div class="articles-grid" id="articles-grid">
 
+    <div class="article-card" onclick="openArticle('muis')">
+      <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Mus_musculus_among_leaves.jpg/1280px-Mus_musculus_among_leaves.jpg" alt="De muis" onerror="this.style.display='none'">
+      <div class="card-body">
+        <p class="card-category">Bezinning</p>
+        <h3 class="card-title">De muis die geen muis meer wilde zijn</h3>
+        <p class="card-excerpt">Diep onder de oude vlierstruik leefde een kleine muis. Onzichtbaar, niet magisch maar praktisch. Tot ze een kameleon zag — en zichzelf herkende.</p>
+        <div class="card-meta">
+          <span>12 mei 2026</span>
+          <a class="card-read-more">Lees meer &rarr;</a>
+        </div>
+      </div>
+    </div>
+
     <div class="article-card" onclick="openArticle('coen')">
       <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Jan_Pieterszoon_Coen_by_Jacob_Waben.jpg" alt="Jan Pieterszoon Coen" style="object-position:top;" onerror="this.style.display='none'">
       <div class="card-body">
@@ -908,6 +921,89 @@ function closeSeriesPart() {
 
 // ── Article data ──
 const articles = {
+  muis: {
+    title: 'De muis die geen muis meer wilde zijn',
+    meta: 'Categorie: Bezinning · 12 mei 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--text-light);border-left:3px solid var(--sand);padding-left:1.2rem;margin-bottom:2em;">Een verhaal over onzichtbaarheid, bewondering en de moed om jezelf te laten zien</p>
+
+      <p>Diep onder de oude vlierstruik, waar de wortels een natuurlijk labyrint vormden, leefde een kleine muis. Ze had geen naam, of liever: ze had er duizend, maar niemand riep haar ooit. Haar grijze vachtje was zo gewoon dat de schemering haar al na één stap opslokte.</p>
+
+      <p>Deze muis was onzichtbaar. Niet magisch, maar praktisch. Ze werkte hard, sleepte zaadjes naar haar hol, repareerde de gangetjes als ze instortten, waste haar kinderen met koortsachtige toewijding. En niemand zag het. De roofdieren niet, godzijdank, maar ook haar eigen soort niet. Ze bewoog zich in de schaduwen, razendsnel, van de ene naar de andere kier. Gangetjes waren haar aders, de aarde haar huid. Ze had een wereld voor zichzelf, klein en veilig.</p>
+
+      <p>En toch.</p>
+
+      <p>Op een dag, toen ze boven de grond een verdwaalde bes zocht, zag ze iets. Het zat op een tak, zo stil dat ze het eerst voor een blad hield. Maar toen bewoog het. En terwijl het bewoog, veranderde het. Van mosgroen naar bruin naar een vlekkerig goud dat precies paste bij de zonnestip waar het doorheen liep.</p>
+
+      <p>Een kameleon.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Mus_musculus_among_leaves.jpg/1280px-Mus_musculus_among_leaves.jpg" alt="Een muis tussen de bladeren" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">Klein en gewoon — maar dat is niet hetzelfde als onbelangrijk.</figcaption>
+      </figure>
+
+      <p>De muis bleef staan. Haar snorharen trilden. De kameleon was prachtig: niet één kleur, maar duizend. Ze droeg de wereld op haar rug en paste hem steeds opnieuw aan.</p>
+
+      <p>Van een afstandje, diep in de schaduw, bekeek de muis haar. Ze voelde een steek, iets tussen bewondering en verlangen. Wat moet het mooi zijn, dacht ze, om zo gezien te worden. Nee, om zo te kunnen verdwijnen in schoonheid.</p>
+
+      <p>Die nacht, terug in haar hol, droomde ze.</p>
+
+      <p>Ze was een kameleon. En ze paste jurken. Eerst verlegen: een zacht geel, het groen van een jonge blaadje. Maar toen de andere dieren haar niet wegjoegen, werd ze dapperder. Blauw als een vlinder. Rood als een bes. Oranje als de schemering. Ze danste door het labyrint, haar lijf een carrousel van kleuren, en ze lachte. Ze was vrolijk, eindelijk vrolijk. De gangetjes werden breder, de lucht kwam dichterbij.</p>
+
+      <p><em>Hoe mooi moet het zijn, dacht ze in haar droom, om de kameleon te zijn.</em></p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Panther_chameleon_%28Furcifer_pardalis%29_Ankaramibe.jpg/1280px-Panther_chameleon_%28Furcifer_pardalis%29_Ankaramibe.jpg" alt="Een kameleon op een tak" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">De kameleon — prachtig van buiten, maar een gevangene van de blik van anderen.</figcaption>
+      </figure>
+
+      <p>Een week later zag ze haar weer. Dezelfde tak, dezelfde zon.</p>
+
+      <p>Maar deze keer keek de muis anders.</p>
+
+      <p>Ze bleef lang kijken. Echt kijken. En toen viel het haar op: de kameleon bewoog nauwelijks. Elke stap was een gebeurtenis. Eerst een voorpoot, centimeter voor centimeter. Dan een pauze. De ogen rolden onafhankelijk van elkaar: de ene keek naar een vogel, de andere naar een slang die nergens was. De kameleon registreerde alles. Ze scande de wereld, continu, alsof ze een geheim rapport schreef dat niemand ooit zou lezen.</p>
+
+      <p><em>Ze is net als ik</em>, besefte de muis.</p>
+
+      <p>De pracht van haar kleuren was geen feest. Het was een onzichtbaarheidspak, duurder en vermoeiender dan elk grijs vachtje. De kameleon was niet vrij, ze was een gevangene van de blik van anderen, gedwongen om altijd precies te zijn wat de omgeving nodig had. Geen stap te veel. Geen stem, geen dans.</p>
+
+      <p>De muis voelde iets breken in haar borst. Medelijden? Nee. Herkenning.</p>
+
+      <blockquote>Iedereen heeft kwaliteiten waar een ander jaloers op kan zijn. Maar iedereen betaalt ervoor.</blockquote>
+
+      <p>De kameleon betaalde met traagheid, met de eeuwige waakzaamheid, met het feit dat niemand haar ooit zou vragen: <em>"En wie ben jij als er niemand kijkt?"</em></p>
+
+      <p>En toen, in dat donkere gangetje, terwijl de kameleon weer versmolt met de bast van de tak, besloot de muis iets.</p>
+
+      <p><em>Wat als ik háár lef leen?</em></p>
+
+      <p>Niet om te verdwijnen. Om te verschijnen.</p>
+
+      <p>Wat als ze haar grijze pak verruilde voor een kleur die niet paste? Een kleur die schreeuwde: <em>Hier ben ik. En ik ben niet bang.</em></p>
+
+      <p>De roofdieren zouden haar sneller zien, ja. Maar haar snelheid zou haar redden. Ze was muis, verdomme. Ze kon stuiteren, wenden, verdwijnen in een kier die een kameleon nooit zou halen. Ze was vrij geweest in de schaduw, maar vrijheid in het licht, dát was pas echt.</p>
+
+      <figure style="margin:2.5em 0;text-align:center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Sambucus_nigra_flowers.jpg/1280px-Sambucus_nigra_flowers.jpg" alt="Een vlierstruik" style="width:100%;max-height:420px;object-fit:cover;border:1px solid var(--parchment);">
+        <figcaption style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-muted);font-size:0.9rem;margin-top:0.6em;">De vlierstruik — het labyrint waar ze leefde, en van waaruit ze de wereld in stapte.</figcaption>
+      </figure>
+
+      <p>Die avond at de muis geen bes. Ze zocht een stukje koraalmos, felrood, en rolde erdoorheen. Ze vlocht een grasspriet in haar staart. Toen klom ze uit het labyrint: niet snel, niet verborgen — en liep dwars over het open pad.</p>
+
+      <p>Een ekster keek op. De muis bleef staan. Haar hart bonkte.</p>
+
+      <p><em>Kijk dan</em>, dacht ze. <em>Ik heb kleur. Ik heb lef. Ik heb een naam</em> — en ze gaf er zichzelf een, daar in de zon, terwijl de ekster verbaasd wegvloog.</p>
+
+      <p>En ze lachte. Niet in haar droom, maar echt.</p>
+
+      <p>De kameleon, hoog in de tak, registreerde het allemaal. Haar ogen draaiden, één naar de roze muis, één naar een naderende schaduw.</p>
+
+      <p>Zij kon niet lachen. Zij kon alleen maar veranderen.</p>
+
+      <p>De muis danste verder. Parmantig. Contrastrijk. Voor het eerst onmiskenbaar zij.</p>
+    `
+  },
   coen: {
     title: 'Wie we eren, worden we',
     meta: 'Categorie: Bezinning · 9 mei 2026 · door Verbius',
