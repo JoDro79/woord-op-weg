@@ -565,123 +565,49 @@
   </div>
 
   <!-- Grid view -->
-  <div class="articles-grid" id="articles-grid">
+  <div id="articles-grid">
 
-    <div class="article-card" onclick="openArticle('muis')">
-      <img class="card-img" src="https://images.unsplash.com/photo-1776509690587-efefa88a20d8?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="De muis" style="object-position:top;" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Bezinning</p>
-        <h3 class="card-title">De muis die geen muis meer wilde zijn</h3>
-        <p class="card-excerpt">Diep onder de oude vlierstruik leefde een kleine muis. Onzichtbaar, niet magisch maar praktisch. Tot ze een kameleon zag — en zichzelf herkende.</p>
-        <div class="card-meta">
-          <span>12 mei 2026</span>
-          <a class="card-read-more">Lees meer &rarr;</a>
-        </div>
+    <!-- ZOEKBALK -->
+    <div style="max-width:1100px;margin:0 auto 2.5rem;padding:0 1rem;">
+      <div style="position:relative;">
+        <input type="text" id="zoekbalk" placeholder="Zoek in verhalen en teksten…"
+          oninput="filterArtikelen(this.value)"
+          style="width:100%;box-sizing:border-box;padding:0.9em 1.2em 0.9em 3em;font-family:'EB Garamond',serif;font-size:1rem;border:1px solid var(--parchment);background:var(--warm-white);color:var(--text);outline:none;border-radius:0;">
+        <svg style="position:absolute;left:1em;top:50%;transform:translateY(-50%);width:1.1em;height:1.1em;opacity:0.4;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </div>
+      <div id="zoek-resultaten" style="display:none;margin-top:2rem;"></div>
     </div>
 
-    <div class="article-card" onclick="openArticle('coen')">
-      <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Jan_Pieterszoon_Coen_by_Jacob_Waben.jpg" alt="Jan Pieterszoon Coen" style="object-position:top;" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Bezinning</p>
-        <h3 class="card-title">Wie we eren, worden we</h3>
-        <p class="card-excerpt">Op het plein in Hoorn staat hij nog altijd: Jan Pieterszoon Coen. Held voor de één, aanklager voor de ander. Maar wat zegt het over ons, dat hij er nog staat?</p>
-        <div class="card-meta">
-          <span>9 mei 2026</span>
-          <a class="card-read-more">Lees meer →</a>
-        </div>
+    <!-- NIEUWSTE VERHALEN -->
+    <div class="thema-sectie" id="sectie-nieuw">
+      <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
+        <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Nieuwste verhalen</h3>
       </div>
+      <div class="articles-grid" id="grid-nieuw"></div>
     </div>
 
-    <div class="article-card" onclick="openArticle('droogdok')">
-      <img class="card-img" src="https://assets.plaece.nl/thumb/DJqDBLHort6Klzvbcd5-DtufgdMasnMoh8F2RVHic-Y/resizing_type:fit/width:1900/height:0/gravity:sm/enlarge:0/aHR0cHM6Ly9hc3NldHMucGxhZWNlLm5sL29kcC12b29ybmVwdXR0ZW4vaW1hZ2UvZHJvb2dkb2stamFuLWJsYW5rZW4tdm9vcm5lLXB1dHRlbi1oZWxsZXZvZXRzbHVpc183NTg1NzE2MzguanBn.webp" alt="Het droogdok van Jan Blanken" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Geschiedenis</p>
-        <h3 class="card-title">Het dok dat niet bewoog</h3>
-        <p class="card-excerpt">Aan de rand van Hellevoetsluis ligt een plek die niet schreeuwt om aandacht. Het droogdok van Jan Blanken is geen monument dat zich opdringt — het wacht, zoals water wacht, zoals steen wacht.</p>
-        <div class="card-meta">
-          <span>5 mei 2026</span>
-          <a class="card-read-more">Lees meer →</a>
-        </div>
+    <!-- BEZINNING -->
+    <div class="thema-sectie" id="sectie-bezinning" style="margin-top:3rem;">
+      <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
+        <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Bezinning</h3>
       </div>
+      <div class="articles-grid" id="grid-bezinning"></div>
     </div>
 
-    <div class="article-card series-card" onclick="openSeries('provincieen')">
-      <img class="card-img" src="https://images.unsplash.com/photo-1590880449155-b54f958ce314?q=80&w=2029&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="David" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Serie · Geschiedenis</p>
-        <h3 class="card-title">Het ontstaan van een nalatenschap</h3>
-        <p class="card-excerpt">Een verhalende serie over de opkomst van een natie, geboren uit strijd en de onbedwingbare drang naar eigen identiteit.</p>
-        <div class="card-meta">
-          <span>4 delen</span>
-          <a class="card-read-more">Bekijk serie →</a>
-        </div>
+    <!-- GELOOF -->
+    <div class="thema-sectie" id="sectie-geloof" style="margin-top:3rem;">
+      <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
+        <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Geloof</h3>
       </div>
+      <div class="articles-grid" id="grid-geloof"></div>
     </div>
 
-	 <div class="article-card" onclick="openArticle('david')">
-      <img class="card-img" src="https://images.unsplash.com/photo-1600173293426-65190a24be72?q=80&w=1112&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="David" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Geloof</p>
-        <h3 class="card-title">David — Dark Horse van God</h3>
-        <p class="card-excerpt">Een herdersjongen tegenover de meest gevreesde krijger van zijn tijd. Maar wie het verborgen verhaal kent, ziet geen underdog — maar een man die al jaren werd voorbereid.</p>
-        <div class="card-meta">
-          <span>27 april 2026</span>
-          <a class="card-read-more">Lees meer →</a>
-        </div>
+    <!-- GESCHIEDENIS -->
+    <div class="thema-sectie" id="sectie-geschiedenis" style="margin-top:3rem;">
+      <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
+        <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Geschiedenis</h3>
       </div>
-    </div>
-
-    <div class="article-card" onclick="openArticle('steen')">
-      <img class="card-img" src="https://images.unsplash.com/photo-1525857597365-5f6dbff2e36e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Levende Steen" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Bezinning</p>
-        <h3 class="card-title">Levende Steen</h3>
-        <p class="card-excerpt">De steen houdt niet vast aan zijn vorm — hij geeft zich over aan de beitel die zijn ziel blootlegt.</p>
-        <div class="card-meta">
-          <span>27 april 2026</span>
-          <a class="card-read-more">Lees meer →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="article-card" onclick="openArticle('zaad')">
-      <img class="card-img" src="https://images.unsplash.com/photo-1501255184224-b8e069bca278?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Het Zaad van het Koninkrijk" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Geloof</p>
-        <h3 class="card-title">Het Zaad van het Koninkrijk</h3>
-        <p class="card-excerpt">De natuur van het Koninkrijk der Hemelen is groei, transformatie en expansie — verborgen als een mosterdzaadje, onstuitbaar als zuurdeeg.</p>
-        <div class="card-meta">
-          <span>28 april 2026</span>
-          <a class="card-read-more">Lees meer →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="article-card" onclick="openArticle('kindschap')">
-      <img class="card-img" src="https://images.unsplash.com/photo-1759188357421-af0f5835614c?q=80&w=674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Kindschap" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Geloof</p>
-        <h3 class="card-title">Kindschap als radicale omkering</h3>
-        <p class="card-excerpt">Wanneer de discipelen vragen wie de belangrijkste is in het Koninkrijk, plaatst Jezus een kind in hun midden. Een revolutionair manifest tegen alle machtsdenken.</p>
-        <div class="card-meta">
-          <span>29 april 2026</span>
-          <a class="card-read-more">Lees meer →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="article-card" onclick="openArticle('stem')">
-      <img class="card-img" src="https://images.unsplash.com/photo-1630088612853-58ddda1c4856?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Stem in de gang" onerror="this.style.display='none'">
-      <div class="card-body">
-        <p class="card-category">Geloof</p>
-        <h3 class="card-title">Stem in de gang</h3>
-        <p class="card-excerpt">We stonden op het punt om naar de kerk te gaan toen ik een stem hoorde zeggen: "We moeten blij zijn, want vandaag is een feestdag." Wat herdenken we eigenlijk op Goede Vrijdag?</p>
-        <div class="card-meta">
-          <span>30 april 2026</span>
-          <a class="card-read-more">Lees meer →</a>
-        </div>
-      </div>
+      <div class="articles-grid" id="grid-geschiedenis"></div>
     </div>
 
   </div>
@@ -921,6 +847,182 @@ function closeSeriesPart() {
 
 // ── Article data ──
 const articles = {
+  wandelaar: {
+    title: 'De wandelaar en het licht',
+    meta: 'Categorie: Bezinning · 15 mei 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p>De vroege ochtendzon stond laag boven de horizon toen hij zijn rusteloze benen de weg liet vinden. Geen bestemming in gedachten, of toch wel? Een boodschap misschien, een afspraak, een plek waar hij moest zijn. De gedachten tolden door elkaar, een wirwar van moeten en willen, van vergeten en herinneren.</p>
+
+      <p>Zijn voeten bewogen automatisch. Links, rechts, links, rechts. Het ritme van de zool op het trottoir was als een slaapwandelend hart.</p>
+
+      <p>En toen, midden op de stoep, viel er iets stil.</p>
+
+      <p><em>Waar ging hij ook alweer naartoe?</em></p>
+
+      <p>Hij bleef staan. Een voorbijganger mompelde iets, liep om hem heen. De wereld draaide door, maar hij stond even buiten de tijd. Het doel was weg. Opgelost in de nevel van zijn eigen hoofd. Hij fronste, concentreerde zich. En daar was het weer. O ja. Een afspraak. Over een halfuur. Hij liep verder.</p>
+
+      <p>Maar nu keek hij anders. Zijn ogen dwaalden af naar de ramen van de oude kantoorpanden die hij passeerde. Het laagstaande zonlicht speelde over het glas, brak in vreemde hoeken, en daar: zijn schaduw.</p>
+
+      <p>Niet de trouwe, stille metgezel die hij gewend was. Nee, deze schaduw was onrustig. Waar hij recht liep, schoot zijn schaduw links en rechts uit. Waar hij standvastig bleef, kronkelde het zwarte silhouet over de gevel, brak langs de randen van de ramen, rekte uit alsof het wilde ontsnappen.</p>
+
+      <p>Hij vertraagde zijn pas.</p>
+
+      <p><em>Wat zegt dit?</em> dacht hij. Niet over waar hij heen ging, maar over iets anders. Over licht. Over schaduw. Over wie hij eigenlijk was.</p>
+
+      <p>Was hij de wandelaar? De man die van A naar B liep, met een doel, een bestemming, een boodschappenlijstje in zijn hoofd? Of was hij de schaduw? Die onrustige, steeds bewegende aanwezigheid. Altijd aan hem verbonden, maar nooit hem. Soms kleiner dan zijn eigen lichaam, soms groter, reuzend op muren. Soms helder afgetekend, soms onzichtbaar, weggesmolten in duisternis.</p>
+
+      <p>Maar altijd aanwezig. Altijd. Als hij zocht, was de schaduw er.</p>
+
+      <blockquote>Zijn we één? Of is de schaduw iets anders? Een deel van hem dat hij niet bestuurt, dat zijn eigen dans danst?</blockquote>
+
+      <p>Hij dacht aan het licht. Waar het licht is, is de schaduw niet. Licht verdrijft. Licht schept helderheid. Maar zonder licht geen schaduw. En zonder schaduw geen diepte.</p>
+
+      <p>Toen herinnerde hij zich een zin, jaren geleden gelezen in een versleten pocket. Carl Jung: <em>"De schaduw is alles wat je niet van jezelf wilt zijn."</em></p>
+
+      <p>Hij bleef opnieuw staan. Nu niet omdat hij zijn doel vergeten was, maar omdat hij zijn gedachten ruimte gaf. Een fietser remde vlak achter hem, vloekte zachtjes, reed door. Het kon hem niet schelen. Even was er geen tijd. Geen afspraak. Geen halfuur.</p>
+
+      <p>Alleen de vraag: <em>Wie ben ik echt? En wie wil ik zijn?</em></p>
+
+      <p>Hij keek naar zijn handen, naar zijn voeten op het trottoir, naar de schaduw die weer rustig meebewoog, nu het licht niet meer door ramen brak. En in dat stille moment, tussen het verkeer en de gehaaste stad, wist hij het plotseling.</p>
+
+      <p>Hij wilde niet de wandelaar zijn, altijd onderweg naar iets, altijd in beweging.</p>
+
+      <p>Hij wilde niet de schaduw zijn, het verborgen stuk dat hij niet durfde te zien.</p>
+
+      <p>Hij wilde het licht zijn.</p>
+
+      <p>Het licht dat schijnt op wat belangrijk is. Het licht dat richting geeft, waarop genavigeerd wordt. Het licht dat hoop brengt wanneer anderen in de duisternis zitten.</p>
+
+      <p>Hij keek op. De zon stond hoger nu. En voor het eerst die ochtend glimlachte hij, niet omdat hij wist waar hij heen ging, maar omdat hij wist hoe hij wilde gaan.</p>
+
+      <p>Hij liep door. Maar anders.</p>
+    `
+  },
+  uil: {
+    title: 'De uil en de wereld',
+    meta: 'Categorie: Bezinning · 14 mei 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p>Het duurde even voordat iemand haar zag.</p>
+
+      <p>Ze zat hoog in de oude eik, veren tegen de schors gedrukt, ogen half dicht. Wie langsliep, keek dwars door haar heen. Dat was zoals ze het wilde.</p>
+
+      <p>Bewegen deed ze amper. Maar ze merkte alles op.</p>
+
+      <p>Het ritselen van een muis in het gras. Het kraken van een tak onder een vos. Het ademhalen van een ree dat stil stond in het maanlicht. Ze hoorde het verschil tussen een blad dat viel en een blad dat werd vastgehouden. Ze zag een mug dansen in de schemer en wist: over drie tellen is hij dood.</p>
+
+      <p>De hele dag analyseerde ze. De geluiden, de stilten, de patronen. Ze legde ze naast elkaar, schoof ze heen en weer, en vond de waarheid die eronder lag.</p>
+
+      <p>De mensen kenden haar. Ze noemden haar wijs.</p>
+
+      <p>Maar voor haar was wijsheid geen kunst. Het was ademen. Het was zitten en luisteren en niet wegkijken.</p>
+
+      <p>Toen het grootste deel van de wereld sliep, ontvouwde ze haar vleugels. Geluidloos. Snel. Dodelijk.</p>
+
+      <p>In die vlucht kwamen alle beelden voorbij. De muis die wegdook. De vos die hapte. De ree die vluchtte. En opeens zag ze het: de ongelijkheid, de strijd tussen roofdier en prooi, tussen overleven en sterven, tussen macht en onderdrukking.</p>
+
+      <p>Ze verloor haar balans.</p>
+
+      <p>Ze schreeuwde.</p>
+
+      <p>Een rauwe, scherpe klap in de nacht.</p>
+
+      <p>Tot haar schrik werd de wereld wakker. Ogen openden. Koppen draaiden. Ze was niet langer onzichtbaar. Niet langer onopgemerkt.</p>
+
+      <p>Dat was niet wat ze wilde.</p>
+
+      <p>Ze wilde van haar eigen stem af. Ze wilde spreken, verdedigen, rechtzetten. Want zij kende de pijn. Ze had hem geleefd. Hij kleefde aan haar vleugels, maakte haar langzamer, zwaarder.</p>
+
+      <p>Ze vloog naar een grote boom, hoog in de kruin. Ze verstopte zich. Hoopte weer onzichtbaar te worden.</p>
+
+      <p>Maar opeens voelde ze de kou. Het alleen zijn. Anders zijn.</p>
+
+      <p>Dat was niet wat ze wilde. Ze wilde onderdeel zijn. Een wereld zonder oordeel.</p>
+
+      <p>Ze vloog naar een andere boom. Tijdens de vlucht voelde ze de rust komen. Ze vloog over een paard. Hij draaide alleen zijn oren. Had haar gehoord, maar negeerde haar. Gewoon omdat hij geen last van haar had.</p>
+
+      <p>Ze vloog over een koe. Die keek op, kauwde verder, en at van het groene gras.</p>
+
+      <p>Tussen de bomen liep de beer. Hij draaide zich om, maakte zich groot.</p>
+
+      <p>Ze schrok even. Toen luisterde ze.</p>
+
+      <p><em>"Je maakte me wakker,"</em> zei de beer.</p>
+
+      <p>Meer niet. Geen verwijt. Alleen een feit.</p>
+
+      <p>De uil landde bij een schuur, een beschutte plek. Ze liet alle scenario's nog een keer voorbijkomen. Toen begreep ze het.</p>
+
+      <p>Zij was een onderdeel van de wereld. Ze was wijs. Maar zonder uitspreken maakte ze zich onzichtbaar. En dat was niet wat ze wilde.</p>
+
+      <blockquote>Ze wilde zijn als de uil op de munten van Griekenland. Een voorvechter van progressie, wetenschap en vrijheid. Ze wilde zijn wie ze was.</blockquote>
+
+      <p>Onder haar verenkleed.</p>
+
+      <p>Het duurde even voordat iemand haar zag.</p>
+
+      <p>Maar nu keek ze terug.</p>
+    `
+  },
+  dokwerker: {
+    title: 'De dokwerker en de uil',
+    meta: 'Categorie: Bezinning · 13 mei 2026 · door Verbius',
+    comments: [],
+    body: `
+      <p>Het duurde even voordat men hem zag staan.</p>
+
+      <p>Hij was jong, met handen die al eelt kenden maar een gezicht dat nog geen baard durfde te groeien. De oudere dokwerkers schudden hun hoofd toen hij zijn gereedschapskist openklapte en begon te vragen waarom een schip knarste, waarom het kraakte, waarom het zuchtte in de nacht.</p>
+
+      <p><em>"Je moet repareren, niet filosoferen,"</em> zeiden ze.</p>
+
+      <p>Maar de jonge dokwerker luisterde niet. Hij liet zijn vingers over de huid van het schip glijden, voelde de houtnerf als een landkaart van zwakke en sterke plekken. Hij hoorde het touw kreunen onder spanning en wist: hier houdt het stand, hier breekt het. Elke spijker die hij recht sloeg, elke plank die hij verving, leerde hem een nieuw geheim.</p>
+
+      <p>Waar de schoonheid zat? In de kromming van de boeg die de golven omarmde in plaats van hen te trotseren. In de manier waarop een mast zich liet buigen door de wind, maar nooit knakte.</p>
+
+      <p>Toen hij het hout, touw en spijker beheerste, richtte hij zijn blik op het water.</p>
+
+      <p>Hij bestudeerde de getijden als een boek dat hij niet volledig kon lezen, maar steeds beter begreep. De kracht van stroomversnellingen, de traagheid van eb. Hij zat 's nachts op de kade en tekende lijnen in het zand: routes die sneller konden, verder konden. Hij droomde van schepen die samen voeren. Onafhankelijk. Vrij. Maar gebonden door één gemeenschappelijk doel: terugkomen.</p>
+
+      <blockquote>Wie het water begreep, begreep de wereld.</blockquote>
+
+      <p>Hij stond op de kade, zijn gereedschapskist naast zijn voeten, en staarde naar de horizon terwijl de middagzon zijn schaduw langzaam naar het oosten draaide. Een pauze. Eindelijk een pauze.</p>
+
+      <p>Hij merkte haar pas op toen ze riep.</p>
+
+      <p>Een uil. Geen gewone, maar een met ogen die leken te branden in het schemerlicht dat nog geen schemer was. Ze landde op de tak van een oude eik, schudde haar veren en bestudeerde hem.</p>
+
+      <p>De jonge dokwerker keek terug. Hij voelde geen angst.</p>
+
+      <p>De uil keek naar zijn handen. Zijn ogen. De manier waarop hij stond, niet als een man die wachtte op bevelen, maar als een man die de zee al had gevraagd wat zij wilde, en had geluisterd.</p>
+
+      <p><em>Laat je gereedschap vallen</em>, zei de uil. <em>Claim je plek.</em></p>
+
+      <p>De jonge dokwerker fronste.</p>
+
+      <p><em>Niet aan het roer van een schip</em>, vervolgde ze. <em>Aan het roer van de vloot. Want jij kent ze allemaal. Je hebt ze verzorgd, gehoord en gevoeld. Jij kan ze veilig heen sturen en ze weer veilig ontvangen.</em></p>
+
+      <p>Het duurde even voordat hij antwoordde. Toen knielde hij, sloot zijn gereedschapskist met een zachte klik en liet hem staan op de kade.</p>
+
+      <p>Toen de opzichter hem riep, stond de jonge dokwerker nog steeds naar de uil te kijken.</p>
+
+      <p><em>"Je pauze zit erop,"</em> riep de opzichter. <em>"Pak je kist."</em></p>
+
+      <p>De jonge dokwerker schudde zijn hoofd. <em>"Niet meer."</em></p>
+
+      <p>Hij liep langs de werf, langs de schepen die hij had genezen, langs de mannen die hem nooit serieus hadden genomen. Hij liep naar het kantoor van de admiraal, klopte aan, en toen de deur openging, zag de man achter het bureau een jongen met eelt op zijn handen en ogen die de zee hadden gezien.</p>
+
+      <p><em>"Wat wil jij?"</em> vroeg de admiraal.</p>
+
+      <p><em>"Uw plek,"</em> zei de jonge dokwerker. <em>"Over een paar jaar."</em></p>
+
+      <p>De admiraal lachte. Maar de jonge dokwerker lachte niet.</p>
+
+      <p>En de uil, die op de dakrand was neergestreken, lachte ook niet.</p>
+
+      <p>Zij wist het al.</p>
+    `
+  },
   muis: {
     title: 'De muis die geen muis meer wilde zijn',
     meta: 'Categorie: Bezinning · 12 mei 2026 · door Verbius',
@@ -1486,6 +1588,82 @@ body: `
 };
 
 let currentArticle = null;
+
+// ── Kaartdata voor dynamische grid ──
+const kaarten = [
+  { id: 'wandelaar', categorie: 'Bezinning', titel: 'De wandelaar en het licht', excerpt: 'Midden op de stoep viel er iets stil. Waar ging hij ook alweer naartoe? Een verhaal over schaduw, licht en wie je wilt zijn.', datum: '2026-05-15', img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop' },
+  { id: 'uil', categorie: 'Bezinning', titel: 'De uil en de wereld', excerpt: 'Ze zat hoog in de oude eik, veren tegen de schors gedrukt, ogen half dicht. Wie langsliep keek dwars door haar heen. Tot ze schreeuwde.', datum: '2026-05-14', img: 'https://images.unsplash.com/photo-1551085254-e96b210db58a?w=600&auto=format&fit=crop' },
+  { id: 'dokwerker', categorie: 'Bezinning', titel: 'De dokwerker en de uil', excerpt: 'Hij vroeg waarom een schip knarste, kraakte, zuchtte in de nacht. "Je moet repareren, niet filosoferen," zeiden de anderen. Hij luisterde niet.', datum: '2026-05-13', img: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&auto=format&fit=crop' },
+  { id: 'muis', categorie: 'Bezinning', titel: 'De muis die geen muis meer wilde zijn', excerpt: 'Diep onder de oude vlierstruik leefde een kleine muis. Onzichtbaar, niet magisch maar praktisch. Tot ze een kameleon zag — en zichzelf herkende.', datum: '2026-05-12', img: 'https://images.unsplash.com/photo-1523626752472-b55a628f1acc?w=600&auto=format&fit=crop' },
+  { id: 'coen', categorie: 'Bezinning', titel: 'Wie we eren, worden we', excerpt: 'Op het plein in Hoorn staat hij nog altijd: Jan Pieterszoon Coen. Held voor de één, aanklager voor de ander. Maar wat zegt het over ons, dat hij er nog staat?', datum: '2026-05-09', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Jan_Pieterszoon_Coen.jpg/400px-Jan_Pieterszoon_Coen.jpg' },
+  { id: 'steen', categorie: 'Geloof', titel: 'Levende Steen', excerpt: 'Over de betekenis van Petrus en de steen waarop gebouwd wordt.', datum: '2026-04-20', img: 'https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=600&auto=format&fit=crop' },
+  { id: 'zaad', categorie: 'Geloof', titel: 'Het Zaad van het Koninkrijk', excerpt: 'Kleine dingen die groot worden. Over verborgen kracht en geduld.', datum: '2026-04-15', img: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&auto=format&fit=crop' },
+  { id: 'kindschap', categorie: 'Geloof', titel: 'Kindschap als radicale omkering', excerpt: 'Wie de minste is, zal de eerste zijn. Een omgekeerde logica van het Koninkrijk.', datum: '2026-04-10', img: 'https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=600&auto=format&fit=crop' },
+  { id: 'stem', categorie: 'Geloof', titel: 'Stem in de gang', excerpt: 'Over luisteren naar wat je niet verwacht te horen.', datum: '2026-04-05', img: 'https://images.unsplash.com/photo-1500622944204-b135684e99fd?w=600&auto=format&fit=crop' },
+  { id: 'droogdok', categorie: 'Geschiedenis', titel: 'Het dok dat niet bewoog', excerpt: 'Aan de rand van Hellevoetsluis ligt een plek die niet schreeuwt om aandacht. Het droogdok van Jan Blanken wacht, zoals water wacht, zoals steen wacht.', datum: '2026-05-05', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop' },
+];
+
+function maakKaart(k) {
+  return `<div class="article-card" onclick="openArticle('${k.id}')">
+    <img class="card-img" src="${k.img}" alt="${k.titel}" onerror="this.style.display='none'">
+    <div class="card-body">
+      <p class="card-category">${k.categorie}</p>
+      <h3 class="card-title">${k.titel}</h3>
+      <p class="card-excerpt">${k.excerpt}</p>
+      <div class="card-meta">
+        <span>${new Date(k.datum).toLocaleDateString('nl-NL', {day:'numeric',month:'long',year:'numeric'})}</span>
+        <a class="card-read-more">Lees meer &rarr;</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function bouwGrids() {
+  const gesorteerd = [...kaarten].sort((a,b) => b.datum.localeCompare(a.datum));
+  const nieuwste = gesorteerd.slice(0, 3);
+
+  document.getElementById('grid-nieuw').innerHTML = nieuwste.map(maakKaart).join('');
+  document.getElementById('grid-bezinning').innerHTML = kaarten.filter(k => k.categorie === 'Bezinning').map(maakKaart).join('');
+  document.getElementById('grid-geloof').innerHTML = kaarten.filter(k => k.categorie === 'Geloof').map(maakKaart).join('');
+  document.getElementById('grid-geschiedenis').innerHTML = kaarten.filter(k => k.categorie === 'Geschiedenis').map(maakKaart).join('');
+}
+
+function filterArtikelen(zoekterm) {
+  const q = zoekterm.trim().toLowerCase();
+  const zoekDiv = document.getElementById('zoek-resultaten');
+  const secties = document.querySelectorAll('.thema-sectie');
+
+  if (!q) {
+    zoekDiv.style.display = 'none';
+    zoekDiv.innerHTML = '';
+    secties.forEach(s => s.style.display = '');
+    return;
+  }
+
+  secties.forEach(s => s.style.display = 'none');
+
+  const resultaten = kaarten.filter(k => {
+    const artBody = articles[k.id] ? articles[k.id].body.toLowerCase() : '';
+    return k.titel.toLowerCase().includes(q) ||
+           k.excerpt.toLowerCase().includes(q) ||
+           k.categorie.toLowerCase().includes(q) ||
+           artBody.includes(q);
+  });
+
+  if (resultaten.length === 0) {
+    zoekDiv.innerHTML = '<p style="font-family:'Cormorant Garamond',serif;color:var(--text-light);text-align:center;padding:2rem;">Geen verhalen gevonden voor “' + zoekterm + '”.</p>';
+  } else {
+    zoekDiv.innerHTML = '<div class="articles-grid">' + resultaten.map(maakKaart).join('') + '</div>';
+  }
+  zoekDiv.style.display = 'block';
+}
+
+// Bouw de grids bij laden
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bouwGrids);
+} else {
+  bouwGrids();
+}
 
 function openArticle(id) {
   const art = articles[id];
