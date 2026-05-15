@@ -565,7 +565,7 @@
   </div>
 
   <!-- Grid view -->
-  <div id="articles-grid">
+  <div id="articles-wrapper">
 
     <!-- ZOEKBALK -->
     <div style="max-width:1100px;margin:0 auto 2.5rem;padding:0 1rem;">
@@ -934,7 +934,7 @@ function openSeries(id) {
   `;
 
   document.getElementById('series-part-view').style.display = 'none';
-  document.getElementById('articles-grid').style.display = 'none';
+  document.getElementById('articles-wrapper').style.display = 'none';
   document.querySelector('.articles-section .section-header').style.display = 'none';
   document.getElementById('series-view').classList.add('active');
   window.scrollTo({ top: document.getElementById('teksten').offsetTop - 70, behavior: 'smooth' });
@@ -942,7 +942,7 @@ function openSeries(id) {
 
 function closeSeries() {
   history.pushState({}, '', '#');
-  document.getElementById('articles-grid').style.display = 'grid';
+  document.getElementById('articles-wrapper').style.display = 'block';
   document.querySelector('.articles-section .section-header').style.display = 'block';
   document.getElementById('series-view').classList.remove('active');
 }
@@ -1804,7 +1804,7 @@ function openArticle(id) {
 
   renderComments(id);
 
-  document.getElementById('articles-grid').style.display = 'none';
+  document.getElementById('articles-wrapper').style.display = 'none';
   document.querySelector('.articles-section .section-header').style.display = 'none';
   document.getElementById('article-view').classList.add('active');
   window.scrollTo({ top: document.getElementById('teksten').offsetTop - 70, behavior: 'smooth' });
@@ -1812,7 +1812,7 @@ function openArticle(id) {
 }
 
 function closeArticle() {
-  document.getElementById('articles-grid').style.display = 'grid';
+  document.getElementById('articles-wrapper').style.display = 'block';
   document.querySelector('.articles-section .section-header').style.display = 'block';
   document.getElementById('article-view').classList.remove('active');
   currentArticle = null;
@@ -1827,7 +1827,7 @@ window.addEventListener('popstate', function(e) {
     openSeries(e.state.series);
   } else {
     // Terug naar overzicht
-    document.getElementById('articles-grid').style.display = 'grid';
+    document.getElementById('articles-wrapper').style.display = 'block';
     document.querySelector('.articles-section .section-header').style.display = 'block';
     document.getElementById('article-view').classList.remove('active');
     document.getElementById('series-view').classList.remove('active');
