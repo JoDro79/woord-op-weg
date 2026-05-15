@@ -199,6 +199,7 @@
     border: 1px solid var(--parchment);
     transition: transform 0.3s, box-shadow 0.3s;
     overflow: hidden;
+    cursor: pointer;
   }
   .article-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
 
@@ -1757,13 +1758,13 @@ function filterArtikelen(zoekterm) {
   if (!q) {
     zoekDiv.style.display = 'none';
     zoekDiv.innerHTML = '';
-    secties.forEach(s => s.style.display = '');
+    secties.forEach(function(s) { s.style.display = ''; });
     return;
   }
 
-  secties.forEach(s => s.style.display = 'none');
+  secties.forEach(function(s) { s.style.display = 'none'; });
 
-  const resultaten = kaarten.filter(k => {
+  const resultaten = kaarten.filter(function(k) {
     const artBody = articles[k.id] ? articles[k.id].body.toLowerCase() : '';
     return k.titel.toLowerCase().includes(q) ||
            k.excerpt.toLowerCase().includes(q) ||
@@ -1772,17 +1773,19 @@ function filterArtikelen(zoekterm) {
   });
 
   if (resultaten.length === 0) {
-    zoekDiv.innerHTML = '<p style="font-family:Cormorant Garamond,serif;color:var(--text-light);text-align:center;padding:2rem;">Geen verhalen gevonden voor “' + zoekterm + '”.</p>';
+    zoekDiv.innerHTML = '<p style="text-align:center;padding:2rem;font-style:italic;">Geen resultaten gevonden.</p>';
   } else {
-    zoekDiv.innerHTML = '<div class="articles-grid">' + resultaten.map(k =>
-      '<div class="article-card" onclick="openArticle('' + k.id + '')">' +
-      '<div class="card-body">' +
-      '<p class="card-category">' + k.categorie + '</p>' +
-      '<h3 class="card-title">' + k.titel + '</h3>' +
-      '<p class="card-excerpt">' + k.excerpt + '</p>' +
-      '<div class="card-meta"><a class="card-read-more">Lees meer &rarr;</a></div>' +
-      '</div></div>'
-    ).join('') + '</div>';
+    var html = '<div class="articles-grid">';
+    resultaten.forEach(function(k) {
+      html += '<div class="article-card" onclick="openArticle(\'' + k.id + '\')">';
+      html += '<div class="card-body">';
+      html += '<p class="card-category">' + k.categorie + '</p>';
+      html += '<h3 class="card-title">' + k.titel + '</h3>';
+      html += '<p class="card-excerpt">' + k.excerpt + '</p>';
+      html += '</div></div>';
+    });
+    html += '</div>';
+    zoekDiv.innerHTML = html;
   }
   zoekDiv.style.display = 'block';
 }
@@ -1795,7 +1798,9 @@ if (document.readyState === 'loading') {
 }
 
 function openArticle(id) {
+  console.log('openArticle aangeroepen met id:', id);
   const art = articles[id];
+  if (!art) { console.error('Artikel niet gevonden:', id); return; }
   currentArticle = id;
 
   document.getElementById('av-title').textContent = art.title;
