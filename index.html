@@ -572,7 +572,7 @@
       <div style="position:relative;">
         <input type="text" id="zoekbalk" placeholder="Zoek in verhalen en teksten…"
           oninput="filterArtikelen(this.value)"
-          style="width:100%;box-sizing:border-box;padding:0.9em 1.2em 0.9em 3em;font-family:'EB Garamond',serif;font-size:1rem;border:1px solid var(--parchment);background:var(--warm-white);color:var(--text);outline:none;border-radius:0;">
+          style="width:100%;box-sizing:border-box;padding:0.9em 1.2em 0.9em 3em;font-family:'EB Garamond',serif;font-size:1rem;border:1px solid var(--parchment);background:var(--warm-white);color:var(--text);outline:none;">
         <svg style="position:absolute;left:1em;top:50%;transform:translateY(-50%);width:1.1em;height:1.1em;opacity:0.4;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </div>
       <div id="zoek-resultaten" style="display:none;margin-top:2rem;"></div>
@@ -583,7 +583,35 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Nieuwste verhalen</h3>
       </div>
-      <div class="articles-grid" id="grid-nieuw"></div>
+      <div class="articles-grid">
+        <div class="article-card" onclick="openArticle('wandelaar')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop" alt="De wandelaar en het licht" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">De wandelaar en het licht</h3>
+            <p class="card-excerpt">Midden op de stoep viel er iets stil. Waar ging hij ook alweer naartoe? Een verhaal over schaduw, licht en wie je wilt zijn.</p>
+            <div class="card-meta"><span>15 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('uil')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1551085254-e96b210db58a?w=600&auto=format&fit=crop" alt="De uil en de wereld" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">De uil en de wereld</h3>
+            <p class="card-excerpt">Ze zat hoog in de oude eik, veren tegen de schors gedrukt, ogen half dicht. Wie langsliep keek dwars door haar heen. Tot ze schreeuwde.</p>
+            <div class="card-meta"><span>14 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('dokwerker')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&auto=format&fit=crop" alt="De dokwerker en de uil" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">De dokwerker en de uil</h3>
+            <p class="card-excerpt">Hij vroeg waarom een schip knarste, kraakte, zuchtte in de nacht. "Je moet repareren, niet filosoferen," zeiden de anderen. Hij luisterde niet.</p>
+            <div class="card-meta"><span>13 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- BEZINNING -->
@@ -591,7 +619,53 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Bezinning</h3>
       </div>
-      <div class="articles-grid" id="grid-bezinning"></div>
+      <div class="articles-grid">
+        <div class="article-card" onclick="openArticle('wandelaar')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop" alt="De wandelaar en het licht" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">De wandelaar en het licht</h3>
+            <p class="card-excerpt">Midden op de stoep viel er iets stil. Waar ging hij ook alweer naartoe? Een verhaal over schaduw, licht en wie je wilt zijn.</p>
+            <div class="card-meta"><span>15 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('uil')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1551085254-e96b210db58a?w=600&auto=format&fit=crop" alt="De uil en de wereld" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">De uil en de wereld</h3>
+            <p class="card-excerpt">Ze zat hoog in de oude eik, veren tegen de schors gedrukt, ogen half dicht. Wie langsliep keek dwars door haar heen. Tot ze schreeuwde.</p>
+            <div class="card-meta"><span>14 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('dokwerker')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&auto=format&fit=crop" alt="De dokwerker en de uil" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">De dokwerker en de uil</h3>
+            <p class="card-excerpt">Hij vroeg waarom een schip knarste, kraakte, zuchtte in de nacht. "Je moet repareren, niet filosoferen," zeiden de anderen. Hij luisterde niet.</p>
+            <div class="card-meta"><span>13 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('muis')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1523626752472-b55a628f1acc?w=600&auto=format&fit=crop" alt="De muis" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">De muis die geen muis meer wilde zijn</h3>
+            <p class="card-excerpt">Diep onder de oude vlierstruik leefde een kleine muis. Onzichtbaar, niet magisch maar praktisch. Tot ze een kameleon zag — en zichzelf herkende.</p>
+            <div class="card-meta"><span>12 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('coen')">
+          <img class="card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Jan_Pieterszoon_Coen.jpg/400px-Jan_Pieterszoon_Coen.jpg" alt="Wie we eren" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Bezinning</p>
+            <h3 class="card-title">Wie we eren, worden we</h3>
+            <p class="card-excerpt">Op het plein in Hoorn staat hij nog altijd: Jan Pieterszoon Coen. Held voor de één, aanklager voor de ander. Maar wat zegt het over ons?</p>
+            <div class="card-meta"><span>9 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- GELOOF -->
@@ -599,7 +673,44 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Geloof</h3>
       </div>
-      <div class="articles-grid" id="grid-geloof"></div>
+      <div class="articles-grid">
+        <div class="article-card" onclick="openArticle('steen')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=600&auto=format&fit=crop" alt="Levende Steen" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Geloof</p>
+            <h3 class="card-title">Levende Steen</h3>
+            <p class="card-excerpt">Over de betekenis van Petrus en de steen waarop gebouwd wordt.</p>
+            <div class="card-meta"><span>20 april 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('zaad')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&auto=format&fit=crop" alt="Het Zaad" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Geloof</p>
+            <h3 class="card-title">Het Zaad van het Koninkrijk</h3>
+            <p class="card-excerpt">Kleine dingen die groot worden. Over verborgen kracht en geduld.</p>
+            <div class="card-meta"><span>15 april 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('kindschap')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=600&auto=format&fit=crop" alt="Kindschap" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Geloof</p>
+            <h3 class="card-title">Kindschap als radicale omkering</h3>
+            <p class="card-excerpt">Wie de minste is, zal de eerste zijn. Een omgekeerde logica van het Koninkrijk.</p>
+            <div class="card-meta"><span>10 april 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+        <div class="article-card" onclick="openArticle('stem')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1500622944204-b135684e99fd?w=600&auto=format&fit=crop" alt="Stem in de gang" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Geloof</p>
+            <h3 class="card-title">Stem in de gang</h3>
+            <p class="card-excerpt">Over luisteren naar wat je niet verwacht te horen.</p>
+            <div class="card-meta"><span>5 april 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- GESCHIEDENIS -->
@@ -607,7 +718,17 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Geschiedenis</h3>
       </div>
-      <div class="articles-grid" id="grid-geschiedenis"></div>
+      <div class="articles-grid">
+        <div class="article-card" onclick="openArticle('droogdok')">
+          <img class="card-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop" alt="Het dok" onerror="this.style.display='none'">
+          <div class="card-body">
+            <p class="card-category">Geschiedenis</p>
+            <h3 class="card-title">Het dok dat niet bewoog</h3>
+            <p class="card-excerpt">Aan de rand van Hellevoetsluis ligt een plek die niet schreeuwt om aandacht. Het droogdok van Jan Blanken wacht, zoals water wacht, zoals steen wacht.</p>
+            <div class="card-meta"><span>5 mei 2026</span><a class="card-read-more">Lees meer &rarr;</a></div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1651,9 +1772,17 @@ function filterArtikelen(zoekterm) {
   });
 
   if (resultaten.length === 0) {
-    zoekDiv.innerHTML = '<p style="font-family:'Cormorant Garamond',serif;color:var(--text-light);text-align:center;padding:2rem;">Geen verhalen gevonden voor “' + zoekterm + '”.</p>';
+    zoekDiv.innerHTML = '<p style="font-family:Cormorant Garamond,serif;color:var(--text-light);text-align:center;padding:2rem;">Geen verhalen gevonden voor “' + zoekterm + '”.</p>';
   } else {
-    zoekDiv.innerHTML = '<div class="articles-grid">' + resultaten.map(maakKaart).join('') + '</div>';
+    zoekDiv.innerHTML = '<div class="articles-grid">' + resultaten.map(k =>
+      '<div class="article-card" onclick="openArticle('' + k.id + '')">' +
+      '<div class="card-body">' +
+      '<p class="card-category">' + k.categorie + '</p>' +
+      '<h3 class="card-title">' + k.titel + '</h3>' +
+      '<p class="card-excerpt">' + k.excerpt + '</p>' +
+      '<div class="card-meta"><a class="card-read-more">Lees meer &rarr;</a></div>' +
+      '</div></div>'
+    ).join('') + '</div>';
   }
   zoekDiv.style.display = 'block';
 }
