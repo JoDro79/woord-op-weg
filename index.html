@@ -584,7 +584,7 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Nieuwste verhalen</h3>
       </div>
-      <div class="articles-grid">
+      <div class="articles-grid" id="grid-nieuw">
         <div class="article-card" onclick="openArticle('wandelaar')">
           <img class="card-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop" alt="De wandelaar en het licht" onerror="this.style.display='none'">
           <div class="card-body">
@@ -620,7 +620,7 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Bezinning</h3>
       </div>
-      <div class="articles-grid">
+      <div class="articles-grid" id="grid-bezinning">
         <div class="article-card" onclick="openArticle('wandelaar')">
           <img class="card-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop" alt="De wandelaar en het licht" onerror="this.style.display='none'">
           <div class="card-body">
@@ -674,7 +674,7 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Geloof</h3>
       </div>
-      <div class="articles-grid">
+      <div class="articles-grid" id="grid-geloof">
         <div class="article-card" onclick="openArticle('steen')">
           <img class="card-img" src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?w=600&auto=format&fit=crop" alt="Levende Steen" onerror="this.style.display='none'">
           <div class="card-body">
@@ -719,7 +719,7 @@
       <div style="max-width:1100px;margin:0 auto 1rem;padding:0 1rem;">
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Geschiedenis</h3>
       </div>
-      <div class="articles-grid">
+      <div class="articles-grid" id="grid-geschiedenis">
         <div class="article-card" onclick="openArticle('droogdok')">
           <img class="card-img" src="images/droogdok-jan-blanken.jpg" alt="Het dok" onerror="this.style.display='none'">
           <div class="card-body">
@@ -1726,8 +1726,9 @@ const kaarten = [
 ];
 
 function maakKaart(k) {
+  const alt = String(k.titel).replace(/"/g, '&quot;');
   return `<div class="article-card" onclick="openArticle('${k.id}')">
-    <img class="card-img" src="${k.img}" alt="${k.titel}" onerror="this.style.display='none'">
+    ${k.img ? `<img class="card-img" src="${k.img}" alt="${alt}" onerror="this.style.display='none'">` : ''}
     <div class="card-body">
       <p class="card-category">${k.categorie}</p>
       <h3 class="card-title">${k.titel}</h3>
@@ -1790,11 +1791,40 @@ function filterArtikelen(zoekterm) {
   zoekDiv.style.display = 'block';
 }
 
-// Bouw de grids bij laden
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', bouwGrids);
-} else {
+// ── Geüploade teksten (map teksten/ → teksten.json, gemaakt door de GitHub Action) ──
+function laadGeuploadeTeksten() {
+  return fetch('teksten.json', { cache: 'no-cache' })
+    .then(function(r) { return r.ok ? r.json() : { teksten: [] }; })
+    .then(function(data) {
+      (data.teksten || []).forEach(function(t) {
+        if (articles[t.id]) return; // handmatig geplaatste tekst gaat voor
+        const datumNl = new Date(t.datum).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+        articles[t.id] = {
+          title: t.titel,
+          meta: 'Categorie: ' + t.categorie + ' · ' + datumNl + ' · door ' + (t.auteur || 'Verbius'),
+          comments: [],
+          body: t.body
+        };
+        kaarten.push({ id: t.id, categorie: t.categorie, titel: t.titel, excerpt: t.excerpt, datum: t.datum, img: t.img || '' });
+      });
+    })
+    .catch(function() { /* geen teksten.json: alleen de vaste teksten tonen */ });
+}
+
+// Bouw de grids bij laden, daarna opnieuw met de geüploade teksten erbij
+const tekstenGeladen = laadGeuploadeTeksten();
+function startGrids() {
   bouwGrids();
+  tekstenGeladen.then(function() {
+    bouwGrids();
+    const hash = window.location.hash.replace('#', '');
+    if (hash.startsWith('tekst-') && articles[hash] && currentArticle !== hash) openArticle(hash);
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startGrids);
+} else {
+  startGrids();
 }
 
 function openArticle(id) {

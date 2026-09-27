@@ -8,17 +8,21 @@ backend:
 media_folder: "images"
 public_folder: "/images"
 
+# Elke collectie schrijft naar de map teksten/<Categorie>/.
+# Dezelfde map waar je ook .docx/.txt/.md-bestanden in kunt slepen.
 collections:
-  - name: "artikelen"
-    label: "Artikelen"
-    folder: "_artikelen"
+  - name: "bezinning"
+    label: "Bezinning"
+    folder: "teksten/Bezinning"
     create: true
-    slug: "{{slug}}"
-    fields:
+    extension: "md"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: &velden
       - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "DD MMMM YYYY", date_format: "DD MMMM YYYY", time_format: false }
+      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "D MMMM YYYY", time_format: false }
       - { label: "Auteur", name: "author", widget: "string", default: "Verbius" }
-      - { label: "Categorie", name: "category", widget: "select", options: ["Geloof", "Bezinning", "Bijbel", "Gebed"] }
-      - { label: "Samenvatting", name: "excerpt", widget: "text" }
-      - { label: "Inhoud", name: "body", widget: "markdown" }
+      - { label: "Samenvatting", name: "excerpt", widget: "text", required: false, hint: "Leeg laten = eerste zinnen van de tekst" }
       - { label: "Uitgelichte afbeelding", name: "image", widget: "image", required: false }
+      - { label: "Inhoud", name: "body", widget: "markdown" }
+  - { name: "geloof", label: "Geloof", folder: "teksten/Geloof", create: true, extension: "md", slug: "{{year}}-{{month}}-{{day}}-{{slug}}", fields: *velden }
+  - { name: "geschiedenis", label: "Geschiedenis", folder: "teksten/Geschiedenis", create: true, extension: "md", slug: "{{year}}-{{month}}-{{day}}-{{slug}}", fields: *velden }
