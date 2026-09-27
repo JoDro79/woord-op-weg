@@ -82,7 +82,11 @@ function trekTitelAf(html) {
   const m = html.match(/^\s*<(h[1-3]|p)[^>]*>([\s\S]*?)<\/\1>\s*/i);
   if (!m) return { titel: null, html };
   const titel = kaleTekst(m[2]);
+  // Een kop (h1-h3) is altijd een titel. Een gewone alinea alleen als het geen zin is:
+  // kort, en niet eindigend op . ! ? : ;  ("Sinds Eden verzamelt de mens bladeren." is tekst)
+  const isKop = /^h/i.test(m[1]);
   if (!titel || titel.length > 140) return { titel: null, html };
+  if (!isKop && (titel.length > 90 || /[.!?:;…]["'”’)]?$/.test(titel))) return { titel: null, html };
   return { titel, html: html.slice(m[0].length) };
 }
 
@@ -116,7 +120,19 @@ async function verwerk(bestand) {
 
   let titel = meta.titel || meta.title;
   if (!titel) { const t = trekTitelAf(html); titel = t.titel; html = t.html; }
-  if (!titel) titel = basis.replace(/^\d{4}-\d{2}-\d{2}[-_ ]*/, '').replace(/[-_]+/g, ' ');
+  if (!titel) {
+    // Titel uit de bestandsnaam. Een bijbeltekst als "Lukas 9-62" wordt "Lukas 9:62"
+    // (een dubbele punt mag niet in een bestandsnaam).
+    titel = basis.replace(/^\d{4}-\d{2}-\d{2}[-_ ]*/, '')
+      .replace(/^(.*\p{L}\s+\d+)-(\d+(?:-\d+)?)$/u, (_, a, b) => `${a}:${b}`)
+      .replace(/_+/g, ' ');
+    // "de-vuurtoren" → "De vuurtoren" (alleen als de naam geen spaties heeft)
+    if (!/\s/.test(titel)) titel = titel.replace(/-+/g, ' ');
+    titel = titel.charAt(0).toUpperCase() + titel.slice(1);
+  }
+
+  // Lege bladwijzers uit Word (<a id="_..."></a>) weghalen
+  html = html.replace(/<a id="[^"]*"><\/a>/g, '');
 
   // Koppen in de tekst: h1 → h3 zodat ze niet groter worden dan de titel, in de stijl van de site
   html = html.replace(/<h[1-3]([^>]*)>/gi, '<h3 style="font-family:\'Cinzel\',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">')
