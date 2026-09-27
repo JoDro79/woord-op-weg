@@ -11,7 +11,9 @@ Binnen een à twee minuten staat de tekst op woordopweg.nl.
 - **Aanpassen**: upload een nieuwe versie met dezelfde bestandsnaam
 - **Weghalen**: verwijder het bestand
 
-Bestanden die met `_` beginnen (zoals dit bestand) worden overgeslagen.
+Bestanden en mappen die met `_` beginnen worden overgeslagen, zoals dit bestand. Zet teksten die nog niet af zijn in `_concepten/`. Verplaats ze naar een categorie om ze te publiceren.
+
+De oudere teksten zijn **.html**-bestanden. Zo blijven voetnoten en opmaak precies gelijk. Wil je er een aanpassen? Vervang het bestand dan gerust door een .docx met dezelfde datum vooraan. Het adres (bijvoorbeeld `woordopweg.nl/#muis`) blijft alleen gelijk als je de regel `id:` bovenaan het .html-bestand bewaart.
 
 In een .md-bestand kun je alles ook bovenaan zelf opgeven:
 

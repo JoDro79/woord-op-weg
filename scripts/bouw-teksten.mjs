@@ -1,7 +1,7 @@
 // Zet alle tekstbestanden in /teksten om naar /teksten.json, dat index.html inleest.
 //
 // Map = categorie:  teksten/Bezinning/  teksten/Geloof/  teksten/Geschiedenis/
-// Ondersteund:      .md  .txt  .docx
+// Ondersteund:      .md  .txt  .docx  .html
 // Genegeerd:        bestanden die beginnen met _ of .
 //
 // Titel      front matter "titel"/"title", anders de eerste regel of kop van de tekst
@@ -24,7 +24,7 @@ const DOEL = path.join(ROOT, 'teksten.json');
 const CATEGORIEEN = ['Bezinning', 'Geloof', 'Geschiedenis'];
 const STANDAARD_CATEGORIE = 'Bezinning';
 const AFBEELDING_EXT = ['.jpg', '.jpeg', '.png', '.webp'];
-const TEKST_EXT = ['.md', '.txt', '.docx'];
+const TEKST_EXT = ['.md', '.txt', '.docx', '.html'];
 
 const waarschuwingen = [];
 
@@ -107,6 +107,9 @@ async function verwerk(bestand) {
   if (ext === '.md') {
     const g = matter(fs.readFileSync(bestand, 'utf8'));
     meta = g.data; html = marked.parse(g.content);
+  } else if (ext === '.html') {
+    const g = matter(fs.readFileSync(bestand, 'utf8'));
+    meta = g.data; html = g.content.trim();
   } else if (ext === '.txt') {
     html = txtNaarHtml(fs.readFileSync(bestand, 'utf8'));
   } else if (ext === '.docx') {
@@ -134,8 +137,9 @@ async function verwerk(bestand) {
   // Lege bladwijzers uit Word (<a id="_..."></a>) weghalen
   html = html.replace(/<a id="[^"]*"><\/a>/g, '');
 
-  // Koppen in de tekst: h1 → h3 zodat ze niet groter worden dan de titel, in de stijl van de site
-  html = html.replace(/<h[1-3]([^>]*)>/gi, '<h3 style="font-family:\'Cinzel\',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">')
+  // Koppen in de tekst: h1 → h3 zodat ze niet groter worden dan de titel, in de stijl van de site.
+  // Niet in .html-bestanden: die blijven precies zoals ze zijn.
+  if (ext !== '.html') html = html.replace(/<h[1-3]([^>]*)>/gi, '<h3 style="font-family:\'Cinzel\',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;">')
     .replace(/<\/h[1-3]>/gi, '</h3>');
 
   const deelMap = rel.split('/')[1];
@@ -155,12 +159,13 @@ async function verwerk(bestand) {
   }
 
   return {
-    id: 'tekst-' + slug(basis.replace(/^\d{4}-\d{2}-\d{2}[-_ ]*/, '')),
+    id: meta.id ? String(meta.id) : 'tekst-' + slug(basis.replace(/^\d{4}-\d{2}-\d{2}[-_ ]*/, '')),
     titel: String(titel).trim(),
     categorie,
     datum,
     excerpt: String(meta.samenvatting || meta.excerpt || samenvatting(html)).trim(),
     img,
+    imgPositie: meta.afbeelding_positie || '',
     auteur: meta.auteur || meta.author || 'Verbius',
     body: html,
     bron: rel,
