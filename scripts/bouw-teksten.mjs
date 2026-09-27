@@ -9,7 +9,8 @@
 //            (2026-09-27-mijn-tekst.docx), anders de datum waarop het bestand is geüpload
 // Samenvatting  front matter "samenvatting"/"excerpt", anders de eerste zinnen
 // Afbeelding    front matter "afbeelding"/"image", anders een plaatje met dezelfde naam
-//               ernaast (mijn-tekst.jpg), anders geen afbeelding
+//               ernaast (mijn-tekst.jpg), anders de eerste afbeelding in het Word-bestand,
+//               anders geen afbeelding (de site toont dan een omslag met de beginletter)
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,6 +22,8 @@ import { marked } from 'marked';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const BRON = path.join(ROOT, 'teksten');
 const DOEL = path.join(ROOT, 'teksten.json');
+// Afbeeldingen uit Word-bestanden komen hier terecht (wordt bij elke run opnieuw opgebouwd)
+const WORD_BEELDEN = path.join(ROOT, 'images', 'teksten');
 const CATEGORIEEN = ['Bezinning', 'Geloof', 'Geschiedenis'];
 const STANDAARD_CATEGORIE = 'Bezinning';
 const AFBEELDING_EXT = ['.jpg', '.jpeg', '.png', '.webp'];
@@ -102,7 +105,7 @@ async function verwerk(bestand) {
   const ext = path.extname(bestand).toLowerCase();
   const rel = path.relative(ROOT, bestand).split(path.sep).join('/');
   const basis = path.basename(bestand, path.extname(bestand));
-  let meta = {}, html = '';
+  let meta = {}, html = '', eersteBeeld = '';
 
   if (ext === '.md') {
     const g = matter(fs.readFileSync(bestand, 'utf8'));
@@ -113,7 +116,18 @@ async function verwerk(bestand) {
   } else if (ext === '.txt') {
     html = txtNaarHtml(fs.readFileSync(bestand, 'utf8'));
   } else if (ext === '.docx') {
+    const sleutel = slug(basis);
+    let n = 0;
     const r = await mammoth.convertToHtml({ path: bestand }, {
+      convertImage: mammoth.images.imgElement(async (beeld) => {
+        const ext = ({ 'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif', 'image/webp': 'webp' })[beeld.contentType] || 'png';
+        const naam = `${sleutel}-${++n}.${ext}`;
+        fs.mkdirSync(WORD_BEELDEN, { recursive: true });
+        fs.writeFileSync(path.join(WORD_BEELDEN, naam), await beeld.read());
+        const src = `images/teksten/${naam}`;
+        if (!eersteBeeld) eersteBeeld = src;
+        return { src };
+      }),
       styleMap: ["p[style-name='Title'] => h1:fresh", "p[style-name='Titel'] => h1:fresh",
         "p[style-name='Quote'] => blockquote:fresh", "p[style-name='Citaat'] => blockquote:fresh",
         "p[style-name='Kop 1'] => h2:fresh", "p[style-name='Kop 2'] => h3:fresh"],
@@ -157,6 +171,7 @@ async function verwerk(bestand) {
     const buur = AFBEELDING_EXT.map((e) => basis + e).find((n) => fs.existsSync(path.join(map, n)));
     if (buur) img = path.relative(ROOT, path.join(map, buur)).split(path.sep).join('/');
   }
+  if (!img && eersteBeeld) img = eersteBeeld;
 
   return {
     id: meta.id ? String(meta.id) : 'tekst-' + slug(basis.replace(/^\d{4}-\d{2}-\d{2}[-_ ]*/, '')),
@@ -172,6 +187,7 @@ async function verwerk(bestand) {
   };
 }
 
+fs.rmSync(WORD_BEELDEN, { recursive: true, force: true });
 const lijst = [];
 if (fs.existsSync(BRON)) {
   for (const f of wandel(BRON)) {

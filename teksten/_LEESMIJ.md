@@ -7,7 +7,7 @@ Binnen een à twee minuten staat de tekst op woordopweg.nl.
 - Bestandstypen: **.docx** (Word), **.txt**, **.md**
 - **Titel**: de eerste regel (of kop) van de tekst
 - **Datum**: de dag van uploaden, of zet de datum vooraan de bestandsnaam: `2026-09-27-de-vuurtoren.docx`
-- **Afbeelding**: zet een plaatje met dezelfde naam ernaast: `de-vuurtoren.jpg`
+- **Afbeelding**: plak een afbeelding in je Word-bestand (de eerste wordt de kaartfoto), of zet een plaatje met dezelfde naam ernaast: `de-vuurtoren.jpg`. Zonder afbeelding krijgt de kaart een omslag met de beginletter van de titel.
 - **Aanpassen**: upload een nieuwe versie met dezelfde bestandsnaam
 - **Weghalen**: verwijder het bestand
 
