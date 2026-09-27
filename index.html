@@ -213,6 +213,37 @@
 
   .card-body { padding: 1.5rem; }
 
+  /* ── OVERZICHT ALLE TEKSTEN ── */
+  .ov-wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+  .ov-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.5rem; }
+  .ov-filter {
+    font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; letter-spacing: 0.05em;
+    padding: 0.35em 1em; border: 1px solid var(--sand); background: var(--warm-white);
+    color: var(--text-light); cursor: pointer;
+  }
+  .ov-filter:hover { border-color: var(--olive); color: var(--olive-dark); }
+  .ov-filter.actief { background: var(--navy); border-color: var(--navy); color: var(--warm-white); }
+  .ov-filter .ov-aantal { opacity: 0.7; font-size: 0.85em; margin-left: 0.3em; }
+  .ov-jaar {
+    font-family: 'Cinzel', serif; color: var(--gold); font-size: 0.85rem; letter-spacing: 0.15em;
+    margin: 1.8rem 0 0.4rem;
+  }
+  .ov-lijst { list-style: none; margin: 0; padding: 0; }
+  .ov-rij {
+    display: grid; grid-template-columns: 7.5rem 1fr auto; gap: 1rem; align-items: baseline;
+    padding: 0.7rem 0.4rem; border-bottom: 1px solid var(--parchment); cursor: pointer;
+  }
+  .ov-rij:hover { background: var(--cream); }
+  .ov-rij:hover .ov-titel { color: var(--olive-dark); }
+  .ov-datum { font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+  .ov-titel { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--navy); line-height: 1.3; }
+  .ov-cat { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--olive); font-family: 'Cormorant Garamond', serif; white-space: nowrap; }
+  @media (max-width: 600px) {
+    .ov-rij { grid-template-columns: 1fr auto; gap: 0.2rem 0.8rem; }
+    .ov-datum { grid-column: 1; grid-row: 2; }
+    .ov-cat { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  }
+
   .card-category {
     font-size: 0.72rem;
     letter-spacing: 0.2em;
@@ -536,6 +567,7 @@
   <a class="nav-logo" href="#home">Woord op Weg</a>
   <ul class="nav-links">
     <li><a href="#teksten">Teksten</a></li>
+    <li><a href="#overzicht">Overzicht</a></li>
     <li><a href="#nieuwsbrief">Nieuwsbrief</a></li>
     <li><a href="#over">Over mij</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -612,6 +644,15 @@
         <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;">Geschiedenis</h3>
       </div>
       <div class="articles-grid" id="grid-geschiedenis">
+      </div>
+    </div>
+
+    <!-- OVERZICHT ALLE TEKSTEN -->
+    <div class="thema-sectie" id="overzicht" style="margin-top:3rem;scroll-margin-top:80px;">
+      <div class="ov-wrap">
+        <h3 style="font-family:'Cinzel',serif;color:var(--navy);font-size:1rem;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--parchment);padding-bottom:0.5rem;margin-bottom:1.2rem;">Alle teksten</h3>
+        <div class="ov-filters" id="ov-filters"></div>
+        <div id="ov-lijst"></div>
       </div>
     </div>
 
@@ -883,7 +924,30 @@ function bouwGrids() {
   document.getElementById('grid-bezinning').innerHTML = kaarten.filter(k => k.categorie === 'Bezinning').map(maakKaart).join('');
   document.getElementById('grid-geloof').innerHTML = kaarten.filter(k => k.categorie === 'Geloof').map(maakKaart).join('');
   document.getElementById('grid-geschiedenis').innerHTML = kaarten.filter(k => k.categorie === 'Geschiedenis').map(maakKaart).join('');
+  bouwOverzicht();
 }
+
+// ── Overzicht van alle teksten, per jaar, met filter op categorie ──
+let overzichtFilter = 'Alles';
+function bouwOverzicht() {
+  const cats = ['Alles', 'Bezinning', 'Geloof', 'Geschiedenis'];
+  const tel = c => c === 'Alles' ? kaarten.length : kaarten.filter(k => k.categorie === c).length;
+  document.getElementById('ov-filters').innerHTML = cats.filter(c => tel(c) > 0).map(c =>
+    `<button class="ov-filter${c === overzichtFilter ? ' actief' : ''}" onclick="zetOverzichtFilter('${c}')">${c}<span class="ov-aantal">${tel(c)}</span></button>`
+  ).join('');
+
+  const lijst = kaarten.filter(k => overzichtFilter === 'Alles' || k.categorie === overzichtFilter)
+    .sort((a, b) => b.datum.localeCompare(a.datum) || a.titel.localeCompare(b.titel));
+  let html = '', jaar = null;
+  lijst.forEach(k => {
+    const j = k.datum.slice(0, 4);
+    if (j !== jaar) { html += (jaar ? '</ul>' : '') + `<p class="ov-jaar">${j}</p><ul class="ov-lijst">`; jaar = j; }
+    const d = new Date(k.datum).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long' });
+    html += `<li class="ov-rij" onclick="openArticle('${k.id}')"><span class="ov-datum">${d}</span><span class="ov-titel">${k.titel}</span><span class="ov-cat">${k.categorie}</span></li>`;
+  });
+  document.getElementById('ov-lijst').innerHTML = html ? html + '</ul>' : '<p style="font-style:italic;color:var(--text-muted);">Nog geen teksten.</p>';
+}
+function zetOverzichtFilter(c) { overzichtFilter = c; bouwOverzicht(); }
 
 function filterArtikelen(zoekterm) {
   const q = zoekterm.trim().toLowerCase();
@@ -953,6 +1017,7 @@ function startGrids() {
     bouwGrids();
     const hash = window.location.hash.replace('#', '');
     if (hash && !hash.startsWith('serie-') && articles[hash] && currentArticle !== hash) openArticle(hash);
+    if (hash === 'overzicht') document.getElementById('overzicht').scrollIntoView();
   });
 }
 if (document.readyState === 'loading') {
@@ -1001,6 +1066,7 @@ window.addEventListener('popstate', function(e) {
     document.getElementById('article-view').classList.remove('active');
     document.getElementById('series-view').classList.remove('active');
     currentArticle = null;
+    if (window.location.hash === '#overzicht') document.getElementById('overzicht').scrollIntoView();
   }
 });
 
