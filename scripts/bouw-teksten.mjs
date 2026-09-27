@@ -168,7 +168,12 @@ async function verwerk(bestand) {
   let img = meta.afbeelding || meta.image || '';
   if (!img) {
     const map = path.dirname(bestand);
-    const buur = AFBEELDING_EXT.map((e) => basis + e).find((n) => fs.existsSync(path.join(map, n)));
+    // Naamgenoot zoeken, ongevoelig voor hoofdletters en extra spaties
+    // ("Be the original .docx" hoort bij "be the original.JPG")
+    const norm = (n) => n.normalize('NFC').toLowerCase().replace(/\s+/g, ' ').trim();
+    const buur = fs.readdirSync(map).find((n) =>
+      AFBEELDING_EXT.includes(path.extname(n).toLowerCase()) &&
+      norm(path.basename(n, path.extname(n))) === norm(basis));
     if (buur) img = path.relative(ROOT, path.join(map, buur)).split(path.sep).join('/');
   }
   if (!img && eersteBeeld) img = eersteBeeld;
