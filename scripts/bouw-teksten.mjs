@@ -93,6 +93,98 @@ function trekTitelAf(html) {
   return { titel, html: html.slice(m[0].length) };
 }
 
+// ── Automatische opmaak in de stijl van de site ──
+// Alleen voor .docx/.txt/.md (niet voor .html: die blijven zoals ze zijn).
+// Uitzetten per tekst met front matter "opmaak: nee".
+const STIJL_KOP = "font-family:'Cinzel',serif;color:var(--navy);margin:2em 0 0.5em;font-size:1.2rem;";
+const STIJL_INTRO = "font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--text-light);border-left:3px solid var(--sand);padding-left:1.2rem;margin-bottom:2em;";
+const BOEKEN = 'Genesis|Exodus|Leviticus|Numeri|Deuteronomium|Jozua|Richteren|Ruth|Samuël|Samuel|Koningen|Kronieken|Ezra|Nehemia|Esther|Job|Psalm|Psalmen|Spreuken|Prediker|Hooglied|Jesaja|Jeremia|Klaagliederen|Ezechiël|Ezechiel|Daniël|Daniel|Hosea|Joël|Amos|Obadja|Jona|Micha|Nahum|Habakuk|Zefanja|Haggaï|Zacharia|Maleachi|Matteüs|Mattheüs|Matthëus|Mattheus|Marcus|Markus|Lucas|Lukas|Johannes|Handelingen|Romeinen|Korintiërs|Korinthe|Galaten|Efeziërs|Efeze|Filippenzen|Kolossenzen|Tessalonicenzen|Thessalonicenzen|Timoteüs|Timotheüs|Titus|Filemon|Hebreeën|Jakobus|Petrus|Judas|Openbaring|Ef|Rom|Joh|Matt|Mat|Luc|Luk|Mar|Mark|Hand|Hebr|Kor|Gal|Fil|Kol|Openb|Ps|Spr|Jes|Jer|Gen|Ex';
+const BIJBELREF = new RegExp(`(?:^|[\\s(—–-])(?:[1-3]\\s?)?(?:${BOEKEN})\\.?\\s+\\d+(?::\\d+(?:\\s?[-–]\\s?\\d+)?)?`, 'u');
+const ALLEEN_REF = new RegExp(`^(?:[1-3]\\s?)?(?:${BOEKEN})\\.?\\s+\\d+(?::\\d+(?:\\s?[-–]\\s?\\d+)?)?:?$`, 'u');
+const OPEN = `"“„'‘«`, SLUIT = `"”'’»`;
+
+function blokken(html) {
+  const uit = [], re = /<(p|h[1-6]|blockquote|ul|ol|table|figure)(\s[^>]*)?>([\s\S]*?)<\/\1>/gi;
+  let m, laatst = 0;
+  while ((m = re.exec(html))) {
+    if (m.index > laatst && html.slice(laatst, m.index).trim()) uit.push({ tag: 'raw', html: html.slice(laatst, m.index) });
+    uit.push({ tag: m[1].toLowerCase(), attrs: m[2] || '', inner: m[3], html: m[0], tekst: kaleTekst(m[3]) });
+    laatst = re.lastIndex;
+  }
+  if (html.slice(laatst).trim()) uit.push({ tag: 'raw', html: html.slice(laatst) });
+  return uit;
+}
+
+// Eén geheel tussen aanhalingstekens, eventueel gevolgd door een bron: "…" (Johannes 3:16) of "…" — Lucas 9:62
+function isCitaat(t) {
+  if (!OPEN.includes(t[0]) || t.length > 500) return false;
+  const kern = t.replace(/\s*(?:\([^)]*\)|[—–-]\s*[^"”]{2,60})\s*\.?$/, '').trim();
+  const eind = kern[kern.length - 1];
+  if (!SLUIT.includes(eind) && !(SLUIT.includes(kern[kern.length - 2]) && /[.!?]/.test(eind))) return false;
+  // Geen dialoog: binnenin mag het citaat niet sluiten en weer openen ("…," zei hij. "…")
+  const binnen = kern.slice(1, -1);
+  return !/["”]\s*[,.]?\s+\p{Ll}+[^"“„]*["“„]/u.test(binnen);
+}
+
+function isKop(b, volgende) {
+  const t = b.tekst;
+  if (b.tag !== 'p' || !t || !volgende) return false;
+  if (/^\d+[.)]\s+\S/.test(t) && t.length <= 90) return true;          // "1. Hoor het Woord: …"
+  if (t.length > 80 || t.split(/\s+/).length > 12) return false;
+  if (OPEN.includes(t[0]) || ALLEEN_REF.test(t)) return false;
+  if (/[.!?:;,…"”’'»)]$/.test(t)) return false;                          // een zin, geen kop
+  if (!/^[\p{Lu}\d]/u.test(t)) return false;
+  return volgende.tekst.length > t.length;                               // er volgt echte tekst
+}
+
+function verfraai(html, categorie) {
+  const bs = blokken(html);
+  const inhoud = bs.filter((b) => b.tag !== 'raw');
+  let eersteAlinea = true;
+  return bs.map((b, i) => {
+    if (b.tag === 'raw') return b.html;
+    const idx = inhoud.indexOf(b), vorige = inhoud[idx - 1], volgende = inhoud[idx + 1];
+    const t = b.tekst;
+    if (b.tag === 'p' && /^(\*\s*){3,}$|^(-\s*){3,}$|^(~\s*){1,3}$|^✦/.test(t)) {
+      return '<p class="tekst-scheiding" aria-hidden="true">✦ &nbsp; ✦ &nbsp; ✦</p>';
+    }
+    if (b.tag === 'p' && idx === 0 && ALLEEN_REF.test(t)) {
+      return `<p style="${STIJL_INTRO}">${t.replace(/:$/, '')}</p>`;              // bijbeltekst als opening
+    }
+    // Bijbelvers met versnummer ("34 Toen zei David…"): citaat, versnummer klein;
+    // opeenvolgende verzen komen samen in één citaatblok
+    if (b.tag === 'p' && /^\d{1,3}\s+\p{L}/u.test(t) && t.length < 700) {
+      // Versnummer klein zetten, ook als Word het vet/cursief maakte: <strong><em>34 </em></strong>
+      const vers = b.inner.trim().replace(
+        /^((?:<(?:strong|em|b|i)>)*)\s*(\d{1,3})\s*((?:<\/(?:strong|em|b|i)>)*)\s*/,
+        (_, open, nr, sluit) => (open.match(/</g) || []).length === (sluit.match(/</g) || []).length
+          ? `<sup>${nr}</sup>\u00a0` : `${open}<sup>${nr}</sup>\u00a0`);
+      const vorigVers = vorige && vorige.tag === 'p' && /^\d{1,3}\s+\p{L}/u.test(vorige.tekst) && vorige.tekst.length < 700;
+      const volgendVers = volgende && volgende.tag === 'p' && /^\d{1,3}\s+\p{L}/u.test(volgende.tekst) && volgende.tekst.length < 700;
+      return `${vorigVers ? '' : '<blockquote>'}<p>${vers}</p>${volgendVers ? '' : '</blockquote>'}`;
+    }
+    if (b.tag === 'p' && isCitaat(t) && (
+      (idx === 0) ||
+      categorie === 'Geloof' ||                                                // losse citaten in geloofsteksten                                                           // motto bovenaan
+      BIJBELREF.test(t) ||                                                     // citaat met bron
+      (vorige && (/:$/.test(vorige.tekst) || ALLEEN_REF.test(vorige.tekst))) // aangekondigd citaat
+    )) {
+      return `<blockquote>${b.inner.trim()}</blockquote>`;
+    }
+    if (isKop(b, volgende)) return `<h3 style="${STIJL_KOP}">${b.inner.replace(/<\/?strong>/g, '').trim()}</h3>`;
+    if (b.tag === 'p' && eersteAlinea && t.length > 60 && !OPEN.includes(t[0])) {
+      eersteAlinea = false;
+      return `<p class="tekst-begin">${b.inner}</p>`;                       // initiaal
+    }
+    return b.html;
+  }).join('\n');
+}
+
+function categorieVoorOpmaak(rel, meta) {
+  const c = meta.categorie || meta.category || (rel.split('/').length > 2 ? rel.split('/')[1] : '');
+  return CATEGORIEEN.find((x) => x.toLowerCase() === String(c).toLowerCase()) || '';
+}
+
 function txtNaarHtml(tekst) {
   tekst = tekst.replace(/\r\n?/g, '\n').replace(/^﻿/, '');
   const heeftWitregels = /\n\s*\n/.test(tekst.trim());
@@ -150,6 +242,9 @@ async function verwerk(bestand) {
 
   // Lege bladwijzers uit Word (<a id="_..."></a>) weghalen
   html = html.replace(/<a id="[^"]*"><\/a>/g, '');
+  html = html.replace(/<p>\s*<\/p>/g, '');
+
+  if (ext !== '.html' && !/^(nee|no|uit|false)$/i.test(String(meta.opmaak ?? ''))) html = verfraai(html, categorieVoorOpmaak(rel, meta));
 
   // Koppen in de tekst: h1 → h3 zodat ze niet groter worden dan de titel, in de stijl van de site.
   // Niet in .html-bestanden: die blijven precies zoals ze zijn.

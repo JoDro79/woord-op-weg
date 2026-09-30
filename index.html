@@ -240,6 +240,15 @@
 
   .card-body { padding: 1.5rem; }
   .article-body img { max-width: 100%; height: auto; display: block; margin: 1.5em auto; }
+  /* Automatische opmaak van geüploade teksten */
+  .article-body .tekst-begin::first-letter {
+    font-family: 'Cinzel', serif; float: left; font-size: 3.4em; line-height: 0.85;
+    margin: 0.08em 0.12em 0 0; color: var(--gold);
+  }
+  .article-body .tekst-scheiding { text-align: center; color: var(--gold-light); letter-spacing: 0.4em; margin: 2.2em 0; }
+  .article-body blockquote p { margin-bottom: 0.6em; }
+  .article-body blockquote p:last-child { margin-bottom: 0; }
+  .article-body blockquote sup { font-family: 'EB Garamond', serif; font-style: normal; color: var(--gold); font-size: 0.7em; }
 
   /* ── OVERZICHT ALLE TEKSTEN ── */
   .ov-wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
