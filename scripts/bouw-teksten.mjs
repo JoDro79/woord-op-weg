@@ -82,7 +82,7 @@ function gitDatum(bestand) {
 
 // Haalt de eerste kop of alinea uit de HTML als titel, als er geen titel is opgegeven.
 function trekTitelAf(html) {
-  const m = html.match(/^\s*<(h[1-3]|p)[^>]*>([\s\S]*?)<\/\1>\s*/i);
+  const m = html.match(/^\s*<(h[1-3]|p)(?![^>]*class="intro")[^>]*>([\s\S]*?)<\/\1>\s*/i);
   if (!m) return { titel: null, html };
   const titel = kaleTekst(m[2]);
   // Een kop (h1-h3) is altijd een titel. Een gewone alinea alleen als het geen zin is:
@@ -145,6 +145,7 @@ function verfraai(html, categorie) {
     if (b.tag === 'raw') return b.html;
     const idx = inhoud.indexOf(b), vorige = inhoud[idx - 1], volgende = inhoud[idx + 1];
     const t = b.tekst;
+    if (b.tag === 'p' && /class="intro"/.test(b.attrs)) return `<p style="${STIJL_INTRO}">${b.inner.trim()}</p>`;
     if (b.tag === 'p' && /^(\*\s*){3,}$|^(-\s*){3,}$|^(~\s*){1,3}$|^✦/.test(t)) {
       return '<p class="tekst-scheiding" aria-hidden="true">✦ &nbsp; ✦ &nbsp; ✦</p>';
     }
@@ -178,6 +179,11 @@ function verfraai(html, categorie) {
     }
     return b.html;
   }).join('\n');
+}
+
+function inleidingTekst(html) {
+  const m = html.match(/^\s*<p style="[^"]*border-left:3px solid var\(--sand\)[^"]*">([\s\S]*?)<\/p>/);
+  return m && !ALLEEN_REF.test(kaleTekst(m[1])) ? kaleTekst(m[1]) : '';
 }
 
 function categorieVoorOpmaak(rel, meta) {
@@ -222,6 +228,9 @@ async function verwerk(bestand) {
       }),
       styleMap: ["p[style-name='Title'] => h1:fresh", "p[style-name='Titel'] => h1:fresh",
         "p[style-name='Quote'] => blockquote:fresh", "p[style-name='Citaat'] => blockquote:fresh",
+        "p[style-name='Intense Quote'] => blockquote:fresh", "p[style-name='Duidelijk citaat'] => blockquote:fresh",
+        // Word-stijl "Ondertitel" (intern "Subtitle") = de schuingedrukte inleiding bovenaan
+        "p[style-name='Subtitle'] => p.intro:fresh", "p[style-name='Ondertitel'] => p.intro:fresh",
         "p[style-name='Kop 1'] => h2:fresh", "p[style-name='Kop 2'] => h3:fresh"],
     });
     html = r.value;
@@ -243,6 +252,9 @@ async function verwerk(bestand) {
   // Lege bladwijzers uit Word (<a id="_..."></a>) weghalen
   html = html.replace(/<a id="[^"]*"><\/a>/g, '');
   html = html.replace(/<p>\s*<\/p>/g, '');
+
+  const inleiding = meta.inleiding || meta.ondertitel || meta.subtitle;
+  if (inleiding && ext !== '.html') html = `<p class="intro">${esc(inleiding)}</p>\n` + html;
 
   if (ext !== '.html' && !/^(nee|no|uit|false)$/i.test(String(meta.opmaak ?? ''))) html = verfraai(html, categorieVoorOpmaak(rel, meta));
 
@@ -278,7 +290,8 @@ async function verwerk(bestand) {
     titel: String(titel).trim(),
     categorie,
     datum,
-    excerpt: String(meta.samenvatting || meta.excerpt || samenvatting(html)).trim(),
+    // Samenvatting op de kaart: opgegeven, anders de inleiding, anders de eerste zinnen
+    excerpt: String(meta.samenvatting || meta.excerpt || inleidingTekst(html) || samenvatting(html.replace(/<p style="[^"]*border-left[^"]*">[\s\S]*?<\/p>/, ''))).trim(),
     img,
     imgPositie: meta.afbeelding_positie || '',
     auteur: meta.auteur || meta.author || 'Verbius',

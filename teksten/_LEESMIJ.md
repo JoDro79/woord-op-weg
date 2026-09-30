@@ -18,6 +18,8 @@ Binnen een à twee minuten staat de tekst op woordopweg.nl.
 - **Bijbelverzen**: alinea's die met een versnummer beginnen (`34 Toen zei David…`) komen samen in één citaatblok, met kleine versnummers
 - **Bijbeltekst bovenaan** (`Ezechiël 37:1-14`) wordt de openingsregel
 - **Scheiding**: een regel met `***` wordt ✦ ✦ ✦
+- **Inleiding**: geef in Word de alinea onder de titel de stijl **Ondertitel**. Die wordt schuingedrukt met een streep ervoor, zoals bij "De muis", en komt ook als samenvatting op de kaart. In een .md-bestand zet je bovenaan `inleiding: …`
+- **Titel**: gebruik in Word de stijl **Titel** voor de titel, dan wordt hij altijd goed herkend
 - **Beginletter**: de eerste alinea krijgt een grote gouden letter
 
 Klopt het een keer niet? Een kop van Word (Kop 1/Kop 2) wordt altijd een tussenkop. Wil je bij een .md-tekst geen automatische opmaak, zet dan `opmaak: nee` bovenaan.
